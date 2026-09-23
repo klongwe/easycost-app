@@ -5,10 +5,345 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EASY COST Application</title>
   
-  <!-- Google Fonts & FontAwesome -->
+  <!-- Font & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Kanit', sans-serif;
+      user-select: none;
+    }
+
+    body {
+      background-color: #0e1e19;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .mobile-frame {
+      width: 375px;
+      height: 812px;
+      background-color: #f3f3f1;
+      border-radius: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: #f3f3f1;
+      z-index: 10;
+    }
+
+    .status-bar .icons i {
+      margin-left: 5px;
+      font-size: 12px;
+    }
+
+    .page {
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 16px 80px 16px;
+    }
+
+    .page.active { display: block; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .brand-title { display: flex; align-items: center; gap: 6px; }
+
+    .currency-badge {
+      background-color: #e6c8a0;
+      color: #704214;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .app-name { font-size: 20px; font-weight: 700; color: #3d2b1f; }
+    .subtitle { font-size: 12px; color: #777; margin-top: 2px; }
+    .user-avatar i { font-size: 36px; color: #c89d7c; cursor: pointer; }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .sales-card { background-color: #ededea; }
+    .sales-header { display: flex; align-items: center; }
+
+    .avatar-icon {
+      font-size: 36px;
+      margin-right: 12px;
+      background: #f8db75;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sales-info { flex: 1; }
+    .sales-title { font-size: 15px; font-weight: 600; color: #444; }
+    .sales-amount { font-size: 22px; font-weight: 700; color: #111; margin: 2px 0; }
+    .sales-date { font-size: 12px; color: #666; }
+
+    .status-pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-pill.green { background-color: #d1f2d9; color: #28a745; font-weight: 600; }
+    .status-pill .dot { width: 6px; height: 6px; background-color: #28a745; border-radius: 50%; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .summary-card {
+      border-radius: 16px;
+      padding: 12px 6px;
+      text-align: center;
+    }
+
+    .summary-card.income { background-color: #cbebd5; }
+    .summary-card.expense { background-color: #f7cbcc; }
+    .summary-card.profit { background-color: #f5e4bc; }
+
+    .card-label { font-size: 12px; color: #444; margin-bottom: 2px; }
+    .card-value { font-size: 14px; font-weight: 700; color: #111; word-break: break-all; }
+
+    .customer-card { display: flex; align-items: center; background-color: #ededea; }
+
+    .customer-icon {
+      width: 42px; height: 42px; background: #dedede; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin-right: 14px; color: #665243;
+    }
+
+    .customer-label { font-size: 13px; color: #555; }
+    .customer-count { font-size: 18px; font-weight: 700; color: #111; }
+
+    .action-buttons { display: flex; gap: 8px; margin-bottom: 12px; }
+
+    .btn-action {
+      flex: 1; padding: 10px; border: none; border-radius: 12px;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+
+    .btn-action.primary { background-color: #3fa55b; color: #fff; }
+    .btn-action.secondary { background-color: #d0d5dd; color: #333; }
+
+    .graph-card { background-color: #ededea; }
+    .graph-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #222; }
+
+    .graph-container { display: flex; height: 140px; align-items: flex-end; }
+    .y-axis { display: flex; flex-direction: column; justify-content: space-between; height: 100%; font-size: 10px; color: #888; padding-right: 8px; padding-bottom: 20px; }
+
+    .bars-wrapper { display: flex; justify-content: space-between; align-items: flex-end; flex: 1; height: 100%; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+    .bar-group { display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+    .bar-pair { display: flex; align-items: flex-end; gap: 2px; height: 100px; }
+    .bar { width: 10px; border-radius: 3px 3px 0 0; transition: height 0.4s ease; }
+    .bar.green { background-color: #27a863; }
+    .bar.pink { background-color: #ea868f; }
+    .x-label { font-size: 11px; color: #555; }
+
+    /* Queue Page */
+    .queue-title-header h2 { text-align: center; font-size: 20px; font-weight: 700; margin: 10px 0 16px 0; }
+    .queue-tabs { display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 16px; }
+
+    .tab-item {
+      flex: 1; text-align: center; padding: 8px 0; font-size: 14px;
+      font-weight: 600; color: #888; cursor: pointer; position: relative;
+    }
+
+    .tab-item.active { color: #111; }
+    .tab-item.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: #8c6239; }
+
+    .queue-card {
+      background: #ffffff; border-radius: 14px; padding: 12px 14px;
+      margin-bottom: 10px; display: flex; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .queue-number {
+      width: 40px; height: 40px; border-radius: 10px; color: #fff;
+      font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-right: 12px;
+    }
+
+    .bg-ordering { background-color: #3fa55b; }
+    .bg-waiting { background-color: #4a80d6; }
+    .bg-completed { background-color: #828a95; }
+
+    .queue-details { flex: 1; }
+    .customer-name { font-size: 15px; font-weight: 600; color: #222; }
+    .customer-qty { font-size: 12px; color: #666; margin-top: 2px; }
+    .queue-status { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+
+    .status-badge { font-size: 11px; padding: 3px 8px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .status-badge.ordering { background-color: #d1f2d9; color: #27a863; }
+    .status-badge.waiting { background-color: #dbe7f9; color: #4a80d6; }
+    .status-badge.completed { background-color: #e5e7eb; color: #6b7280; }
+
+    .time-label { font-size: 12px; color: #555; }
+    .btn-delete { color: #e53e3e; font-size: 12px; margin-left: 8px; cursor: pointer; }
+
+    .btn-add-queue {
+      width: 100%; background-color: #8c5a2b; color: #fff; border: none;
+      padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 600; margin-top: 10px; cursor: pointer;
+    }
+
+    .btn-add-queue.primary-green { background-color: #3fa55b; }
+
+    /* Finance & Stock List Items */
+    .mb-12 { margin-bottom: 12px; }
+    .mb-16 { margin-bottom: 16px; }
+    .section-title { font-size: 14px; font-weight: 700; color: #444; margin: 12px 0 8px 0; }
+
+    .item-card {
+      background: #ffffff; border-radius: 14px; padding: 12px 14px;
+      margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .item-left { display: flex; align-items: center; gap: 12px; }
+
+    .item-tag {
+      width: 36px; height: 36px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; font-size: 16px; color: white;
+    }
+
+    .tag-income { background-color: #3fa55b; }
+    .tag-expense { background-color: #ea868f; }
+
+    .item-title { font-size: 14px; font-weight: 600; color: #222; }
+    .item-sub { font-size: 11px; color: #777; margin-top: 2px; }
+
+    .item-right { text-align: right; }
+    .item-amount-inc { font-size: 15px; font-weight: 700; color: #27a863; }
+    .item-amount-exp { font-size: 15px; font-weight: 700; color: #e53e3e; }
+
+    /* Stock Specific */
+    .stock-qty-badge {
+      font-size: 12px; padding: 2px 8px; border-radius: 10px; font-weight: 600; display: inline-block; margin-top: 4px;
+    }
+
+    .qty-ok { background-color: #d1f2d9; color: #27a863; }
+    .qty-low { background-color: #f7cbcc; color: #e53e3e; }
+
+    .stock-actions { display: flex; align-items: center; gap: 8px; }
+
+    .btn-stock-qty {
+      width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ccc;
+      background: #f8f8f8; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    .btn-stock-qty:active { background: #e0e0e0; }
+
+    /* More Page */
+    .profile-card {
+      background: #ffffff; border-radius: 20px; padding: 16px; display: flex;
+      align-items: center; gap: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .profile-avatar { position: relative; font-size: 54px; color: #c89d7c; display: flex; align-items: center; }
+
+    .edit-badge {
+      position: absolute; bottom: 0; right: -2px; background: #8c5a2b; color: #fff;
+      font-size: 10px; width: 22px; height: 22px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; border: 2px solid #fff; cursor: pointer;
+    }
+
+    .profile-info h3 { font-size: 16px; font-weight: 700; color: #222; }
+    .profile-info p { font-size: 13px; color: #666; margin-bottom: 4px; }
+    .role-badge { background: #e6c8a0; color: #704214; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+
+    .settings-group { background: #ffffff; border-radius: 18px; padding: 12px 16px; margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+    .group-title { font-size: 12px; font-weight: 600; color: #888; margin-bottom: 10px; text-transform: uppercase; }
+
+    .settings-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+    .settings-item:last-child { border-bottom: none; }
+
+    .item-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; margin-right: 12px; }
+    .bg-blue { background-color: #4a80d6; }
+    .bg-green { background-color: #3fa55b; }
+    .bg-purple { background-color: #9c27b0; }
+    .bg-teal { background-color: #009688; }
+    .bg-red { background-color: #f56c6c; }
+
+    .item-label { flex: 1; font-size: 14px; font-weight: 500; color: #333; }
+    .arrow-icon { font-size: 12px; color: #ccc; }
+    .settings-item.logout .item-label { color: #f56c6c; font-weight: 600; }
+
+    /* Switch Toggle */
+    .switch { position: relative; display: inline-block; width: 42px; height: 24px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; border-radius: 24px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+    input:checked + .slider { background-color: #3fa55b; }
+    input:checked + .slider:before { transform: translateX(18px); }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: absolute; bottom: 0; width: 100%; height: 65px; background-color: #ffffff;
+      display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; z-index: 10;
+    }
+
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; font-size: 10px; cursor: pointer; }
+    .nav-item i { font-size: 18px; margin-bottom: 3px; }
+    .nav-item.active { color: #704214; font-weight: 700; }
+
+    /* Modals */
+    .modal-backdrop {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);
+      display: none; justify-content: center; align-items: center; z-index: 100;
+    }
+
+    .modal-backdrop.active { display: flex; }
+    .modal-content { background: #fff; width: 88%; border-radius: 20px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .modal-title { font-size: 16px; font-weight: 700; }
+    .modal-close { font-size: 20px; cursor: pointer; color: #888; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 12px; color: #555; margin-bottom: 4px; }
+    .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    .btn-submit { width: 100%; background: #27a863; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: 600; margin-top: 8px; cursor: pointer; }
+  </style>
 </head>
 <body>
 
@@ -23,7 +358,7 @@
       </div>
     </div>
 
-    <!-- ================= PAGE 1: DASHBOARD ================= -->
+    <!-- PAGE 1: DASHBOARD -->
     <div id="dashboard-page" class="page active">
       <div class="header">
         <div class="brand-info">
@@ -40,7 +375,6 @@
         </div>
       </div>
 
-      <!-- Sales Card -->
       <div class="card sales-card">
         <div class="sales-header">
           <div class="avatar-icon">👩</div>
@@ -55,7 +389,6 @@
         </div>
       </div>
 
-      <!-- 3 Summary Cards -->
       <div class="summary-grid">
         <div class="summary-card income">
           <div class="card-label">รายรับ</div>
@@ -71,7 +404,6 @@
         </div>
       </div>
 
-      <!-- Customer Count Card -->
       <div class="card customer-card">
         <div class="customer-icon">
           <i class="fas fa-users"></i>
@@ -82,7 +414,6 @@
         </div>
       </div>
 
-      <!-- Actions Bar -->
       <div class="action-buttons">
         <button class="btn-action primary" onclick="openFinanceModal()">
           <i class="fas fa-plus-circle"></i> บันทึกการเงิน
@@ -92,7 +423,6 @@
         </button>
       </div>
 
-      <!-- Sales Graph Card -->
       <div class="card graph-card">
         <div class="graph-title">ยอดขาย 7 วันล่าสุด (พันบาท)</div>
         <div class="graph-container">
@@ -108,7 +438,7 @@
       </div>
     </div>
 
-    <!-- ================= PAGE 2: QUEUE BOOKING ================= -->
+    <!-- PAGE 2: QUEUE BOOKING -->
     <div id="queue-page" class="page">
       <div class="queue-title-header">
         <h2>จองคิวลูกค้า</h2>
@@ -127,13 +457,12 @@
       </div>
     </div>
 
-    <!-- ================= PAGE 3: FINANCE (ระบบบัญชีการเงิน) ================= -->
+    <!-- PAGE 3: FINANCE -->
     <div id="finance-page" class="page">
       <div class="queue-title-header">
         <h2>บัญชีการเงิน</h2>
       </div>
 
-      <!-- Financial Overview -->
       <div class="summary-grid mb-12">
         <div class="summary-card income">
           <div class="card-label">รายรับรวม</div>
@@ -153,18 +482,16 @@
         <i class="fas fa-plus-circle"></i> + บันทึกการเงินใหม่
       </button>
 
-      <!-- Transactions List -->
       <div class="section-title">ประวัติรายการการเงิน</div>
       <div id="finance-list"></div>
     </div>
 
-    <!-- ================= PAGE 4: INVENTORY / STOCK (ระบบสต็อกสินค้า) ================= -->
+    <!-- PAGE 4: STOCK -->
     <div id="stock-page" class="page">
       <div class="queue-title-header">
         <h2>ระบบสต็อกสินค้า</h2>
       </div>
 
-      <!-- Stock Summary -->
       <div class="summary-grid mb-12">
         <div class="summary-card profit">
           <div class="card-label">รายการสินค้า</div>
@@ -180,12 +507,11 @@
         <i class="fas fa-box"></i> + เพิ่มสินค้าใหม่
       </button>
 
-      <!-- Stock List -->
       <div class="section-title">รายการสินค้าทั้งหมด</div>
       <div id="stock-list"></div>
     </div>
 
-    <!-- ================= PAGE 5: MORE / SETTINGS ================= -->
+    <!-- PAGE 5: MORE -->
     <div id="more-page" class="page">
       <div class="queue-title-header">
         <h2>เพิ่มเติม & ตั้งค่า</h2>
@@ -272,7 +598,7 @@
     </div>
   </div>
 
-  <!-- MODAL 1: จองคิวใหม่ -->
+  <!-- MODAL 1 -->
   <div class="modal-backdrop" id="queue-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -302,7 +628,7 @@
     </div>
   </div>
 
-  <!-- MODAL 2: บันทึกการเงิน -->
+  <!-- MODAL 2 -->
   <div class="modal-backdrop" id="finance-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -338,7 +664,7 @@
     </div>
   </div>
 
-  <!-- MODAL 3: เพิ่มสินค้าในสต็อก -->
+  <!-- MODAL 3 -->
   <div class="modal-backdrop" id="stock-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -369,6 +695,402 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const DEFAULT_QUEUES = [
+      { id: 1, name: "คุณสมชาย", qty: 2, time: "12:30 น.", status: "ordering" },
+      { id: 2, name: "คุณสมชาย", qty: 2, time: "12:45 น.", status: "waiting" },
+      { id: 3, name: "คุณสมชาย", qty: 2, time: "13:00 น.", status: "waiting" },
+      { id: 4, name: "คุณสมชาย", qty: 2, time: "13:15 น.", status: "waiting" }
+    ];
+
+    const DEFAULT_TRANSACTIONS = [
+      { id: 1, type: "income", category: "ยอดขายร้าน", amount: 5820, note: "ยอดขายประจำวัน", date: "10 ต.ค." },
+      { id: 2, type: "expense", category: "ค่าวัตถุดิบ", amount: 2340, note: "สั่งซื้อเมล็ดกาแฟและนมสด", date: "10 ต.ค." }
+    ];
+
+    const DEFAULT_STOCK = [
+      { id: 1, name: "เมล็ดกาแฟ คั่วกลาง", category: "วัตถุดิบ", qty: 15, min: 5, price: 250 },
+      { id: 2, name: "นมสด เมจิ 2L", category: "วัตถุดิบ", qty: 2, min: 4, price: 95 },
+      { id: 3, name: "แก้วกาแฟ 16oz", category: "บรรจุภัณฑ์", qty: 120, min: 50, price: 3 },
+      { id: 4, name: "ไซรัป วานิลลา", category: "วัตถุดิบ", qty: 1, min: 2, price: 320 }
+    ];
+
+    const DEFAULT_PROFILE = { name: "คุณสมชาย ใจดี", shop: "ร้านกาแฟสลับสี่ทุ่ม" };
+    const DEFAULT_SETTINGS = { notif: true, autoPrint: false };
+
+    const DEFAULT_CHART = [
+      { day: "4", income: 50, expense: 35 },
+      { day: "5", income: 55, expense: 25 },
+      { day: "6", income: 60, expense: 35 },
+      { day: "7", income: 80, expense: 60 },
+      { day: "8", income: 80, expense: 60 },
+      { day: "9", income: 75, expense: 50 },
+      { day: "10", income: 85, expense: 80 }
+    ];
+
+    let queues = JSON.parse(localStorage.getItem('easycost_queues')) || DEFAULT_QUEUES;
+    let transactions = JSON.parse(localStorage.getItem('easycost_transactions')) || DEFAULT_TRANSACTIONS;
+    let stockItems = JSON.parse(localStorage.getItem('easycost_stock')) || DEFAULT_STOCK;
+    let profile = JSON.parse(localStorage.getItem('easycost_profile')) || DEFAULT_PROFILE;
+    let settings = JSON.parse(localStorage.getItem('easycost_settings')) || DEFAULT_SETTINGS;
+    let currentQueueTab = 'current';
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateClock();
+      setInterval(updateClock, 1000);
+      setCurrentDate();
+      renderDashboard();
+      renderQueueList();
+      renderFinancePage();
+      renderStockPage();
+      loadProfileAndSettings();
+    });
+
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('clock-time').innerText = `${hours}:${minutes}`;
+    }
+
+    function setCurrentDate() {
+      const months = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
+      const now = new Date();
+      document.getElementById('current-date').innerText = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear() + 543}`;
+    }
+
+    function calculateTotals() {
+      const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
+      const expense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+      const profit = income - expense;
+      return { income, expense, profit };
+    }
+
+    function renderDashboard() {
+      const { income, expense, profit } = calculateTotals();
+
+      document.getElementById('dash-income').innerText = `฿ ${income.toLocaleString()}`;
+      document.getElementById('summary-income').innerText = `฿ ${income.toLocaleString()}`;
+      document.getElementById('summary-expense').innerText = `฿ ${expense.toLocaleString()}`;
+      document.getElementById('summary-profit').innerText = `฿ ${profit.toLocaleString()}`;
+
+      const totalCustomers = queues.reduce((sum, q) => sum + parseInt(q.qty || 0), 0);
+      document.getElementById('dash-customers').innerText = `${totalCustomers} คน`;
+
+      renderChart();
+    }
+
+    function renderChart() {
+      const wrapper = document.getElementById('chart-wrapper');
+      wrapper.innerHTML = '';
+
+      DEFAULT_CHART.forEach(item => {
+        const barGroup = document.createElement('div');
+        barGroup.className = 'bar-group';
+        barGroup.innerHTML = `
+          <div class="bar-pair">
+            <div class="bar green" style="height: ${item.income}%;"></div>
+            <div class="bar pink" style="height: ${item.expense}%;"></div>
+          </div>
+          <span class="x-label">${item.day}</span>
+        `;
+        wrapper.appendChild(barGroup);
+      });
+    }
+
+    function renderFinancePage() {
+      const { income, expense, profit } = calculateTotals();
+
+      document.getElementById('fin-page-income').innerText = `฿ ${income.toLocaleString()}`;
+      document.getElementById('fin-page-expense').innerText = `฿ ${expense.toLocaleString()}`;
+      document.getElementById('fin-page-profit').innerText = `฿ ${profit.toLocaleString()}`;
+
+      const listEl = document.getElementById('finance-list');
+      listEl.innerHTML = '';
+
+      if (transactions.length === 0) {
+        listEl.innerHTML = `<div style="text-align:center; padding:20px; color:#999;">ยังไม่มีรายการการเงิน</div>`;
+        return;
+      }
+
+      transactions.slice().reverse().forEach(t => {
+        const isInc = t.type === 'income';
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.innerHTML = `
+          <div class="item-left">
+            <div class="item-tag ${isInc ? 'tag-income' : 'tag-expense'}">
+              <i class="fas ${isInc ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
+            </div>
+            <div>
+              <div class="item-title">${t.category} ${t.note ? `(${t.note})` : ''}</div>
+              <div class="item-sub">${t.date || 'วันนี้'}</div>
+            </div>
+          </div>
+          <div class="item-right">
+            <div class="${isInc ? 'item-amount-inc' : 'item-amount-exp'}">
+              ${isInc ? '+' : '-'}฿${t.amount.toLocaleString()}
+            </div>
+            <i class="fas fa-trash btn-delete" onclick="deleteTransaction(${t.id})"></i>
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+    }
+
+    function deleteTransaction(id) {
+      if (confirm("ต้องการลบรายการนี้ใช่หรือไม่?")) {
+        transactions = transactions.filter(t => t.id !== id);
+        saveDataAndRefresh();
+      }
+    }
+
+    function renderQueueList() {
+      const queueListEl = document.getElementById('queue-list');
+      queueListEl.innerHTML = '';
+
+      const activeQueues = queues.filter(q => q.status !== 'completed');
+      const historyQueues = queues.filter(q => q.status === 'completed');
+
+      document.getElementById('count-current').innerText = activeQueues.length;
+      document.getElementById('count-history').innerText = historyQueues.length;
+
+      const displayList = currentQueueTab === 'current' ? activeQueues : historyQueues;
+
+      if (displayList.length === 0) {
+        queueListEl.innerHTML = `<div style="text-align:center; padding:30px; color:#999;">ไม่มีรายการคิวในส่วนนี้</div>`;
+        return;
+      }
+
+      displayList.forEach((q, index) => {
+        let bgClass = 'bg-waiting';
+        let statusText = 'รอคิว';
+        let statusClass = 'waiting';
+
+        if (q.status === 'ordering') {
+          bgClass = 'bg-ordering';
+          statusText = 'กำลังสั่ง';
+          statusClass = 'ordering';
+        } else if (q.status === 'completed') {
+          bgClass = 'bg-completed';
+          statusText = 'เสร็จสิ้น';
+          statusClass = 'completed';
+        }
+
+        const card = document.createElement('div');
+        card.className = 'queue-card';
+        card.innerHTML = `
+          <div class="queue-number ${bgClass}">${index + 1}</div>
+          <div class="queue-details">
+            <div class="customer-name">${q.name}</div>
+            <div class="customer-qty">จำนวน ${q.qty} คน</div>
+          </div>
+          <div class="queue-status">
+            <div class="status-badge ${statusClass}" onclick="cycleQueueStatus(${q.id})">
+              ${statusText}
+            </div>
+            <div class="time-label">${q.time}</div>
+          </div>
+          <i class="fas fa-trash btn-delete" onclick="deleteQueue(${q.id})"></i>
+        `;
+        queueListEl.appendChild(card);
+      });
+    }
+
+    function cycleQueueStatus(id) {
+      const queue = queues.find(q => q.id === id);
+      if (!queue) return;
+
+      if (queue.status === 'waiting') queue.status = 'ordering';
+      else if (queue.status === 'ordering') queue.status = 'completed';
+      else if (queue.status === 'completed') queue.status = 'waiting';
+
+      saveDataAndRefresh();
+    }
+
+    function deleteQueue(id) {
+      if (confirm("ต้องการลบคิวนี้ใช่หรือไม่?")) {
+        queues = queues.filter(q => q.id !== id);
+        saveDataAndRefresh();
+      }
+    }
+
+    function switchQueueTab(tab) {
+      currentQueueTab = tab;
+      document.getElementById('tab-current').classList.toggle('active', tab === 'current');
+      document.getElementById('tab-history').classList.toggle('active', tab === 'history');
+      renderQueueList();
+    }
+
+    function renderStockPage() {
+      document.getElementById('stock-total-items').innerText = `${stockItems.length} รายการ`;
+      const lowCount = stockItems.filter(item => item.qty <= item.min).length;
+      document.getElementById('stock-low-items').innerText = `${lowCount} รายการ`;
+
+      const listEl = document.getElementById('stock-list');
+      listEl.innerHTML = '';
+
+      if (stockItems.length === 0) {
+        listEl.innerHTML = `<div style="text-align:center; padding:20px; color:#999;">ยังไม่มีสินค้าในสต็อก</div>`;
+        return;
+      }
+
+      stockItems.forEach(item => {
+        const isLow = item.qty <= item.min;
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.innerHTML = `
+          <div class="item-left">
+            <div>
+              <div class="item-title">${item.name}</div>
+              <div class="item-sub">หมวดหมู่: ${item.category} | ฿${item.price}/หน่วย</div>
+              <span class="stock-qty-badge ${isLow ? 'qty-low' : 'qty-ok'}">
+                ${isLow ? '⚠️ สินค้าใกล้หมด' : 'คงเหลือ'}: ${item.qty} ชิ้น
+              </span>
+            </div>
+          </div>
+          <div class="stock-actions">
+            <button class="btn-stock-qty" onclick="adjustStock(${item.id}, -1)">-</button>
+            <button class="btn-stock-qty" onclick="adjustStock(${item.id}, 1)">+</button>
+            <i class="fas fa-trash btn-delete" onclick="deleteStockItem(${item.id})"></i>
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+    }
+
+    function adjustStock(id, change) {
+      const item = stockItems.find(i => i.id === id);
+      if (item) {
+        item.qty = Math.max(0, item.qty + change);
+        saveDataAndRefresh();
+      }
+    }
+
+    function deleteStockItem(id) {
+      if (confirm("ต้องการลบสินค้านี้ใช่หรือไม่?")) {
+        stockItems = stockItems.filter(i => i.id !== id);
+        saveDataAndRefresh();
+      }
+    }
+
+    function openQueueModal() {
+      const now = new Date();
+      document.getElementById('input-cust-time').value = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      document.getElementById('queue-modal').classList.add('active');
+    }
+    function closeQueueModal() { document.getElementById('queue-modal').classList.remove('active'); }
+
+    function saveNewQueue() {
+      const name = document.getElementById('input-cust-name').value.trim() || "ลูกค้าทั่วไป";
+      const qty = parseInt(document.getElementById('input-cust-qty').value) || 1;
+      const time = document.getElementById('input-cust-time').value + " น.";
+      const status = document.getElementById('input-cust-status').value;
+
+      queues.push({ id: Date.now(), name, qty, time, status });
+      saveDataAndRefresh();
+      closeQueueModal();
+      document.getElementById('input-cust-name').value = '';
+    }
+
+    function openFinanceModal() { document.getElementById('finance-modal').classList.add('active'); }
+    function closeFinanceModal() { document.getElementById('finance-modal').classList.remove('active'); }
+
+    function saveFinanceTransaction() {
+      const type = document.getElementById('input-fin-type').value;
+      const category = document.getElementById('input-fin-cat').value;
+      const amount = parseFloat(document.getElementById('input-fin-amount').value) || 0;
+      const note = document.getElementById('input-fin-note').value.trim();
+
+      if (amount <= 0) return alert('กรุณากรอกจำนวนเงินให้ถูกต้อง');
+
+      transactions.push({ id: Date.now(), type, category, amount, note, date: 'วันนี้' });
+
+      saveDataAndRefresh();
+      closeFinanceModal();
+      document.getElementById('input-fin-amount').value = '';
+      document.getElementById('input-fin-note').value = '';
+    }
+
+    function openStockModal() { document.getElementById('stock-modal').classList.add('active'); }
+    function closeStockModal() { document.getElementById('stock-modal').classList.remove('active'); }
+
+    function saveNewStockItem() {
+      const name = document.getElementById('input-stock-name').value.trim();
+      const category = document.getElementById('input-stock-cat').value.trim() || "ทั่วไป";
+      const qty = parseInt(document.getElementById('input-stock-qty').value) || 0;
+      const min = parseInt(document.getElementById('input-stock-min').value) || 3;
+      const price = parseFloat(document.getElementById('input-stock-price').value) || 0;
+
+      if (!name) return alert('กรุณากรอกชื่อสินค้า');
+
+      stockItems.push({ id: Date.now(), name, category, qty, min, price });
+
+      saveDataAndRefresh();
+      closeStockModal();
+      document.getElementById('input-stock-name').value = '';
+    }
+
+    function loadProfileAndSettings() {
+      document.getElementById('profile-name-text').innerText = profile.name;
+      document.getElementById('profile-shop-text').innerText = profile.shop;
+      document.getElementById('toggle-notif').checked = settings.notif;
+      document.getElementById('toggle-print').checked = settings.autoPrint;
+    }
+
+    function editProfile() {
+      const newName = prompt("กรุณากรอกชื่อ-นามสกุลของคุณ:", profile.name);
+      if (newName !== null && newName.trim() !== "") {
+        const newShop = prompt("กรุณากรอกชื่อร้านค้าของคุณ:", profile.shop);
+        profile.name = newName.trim();
+        if (newShop !== null && newShop.trim() !== "") {
+          profile.shop = newShop.trim();
+        }
+        localStorage.setItem('easycost_profile', JSON.stringify(profile));
+        loadProfileAndSettings();
+      }
+    }
+
+    function saveSettings() {
+      settings.notif = document.getElementById('toggle-notif').checked;
+      settings.autoPrint = document.getElementById('toggle-print').checked;
+      localStorage.setItem('easycost_settings', JSON.stringify(settings));
+    }
+
+    function handleLogout() {
+      if (confirm("คุณต้องการออกจากระบบหรือไม่?")) {
+        alert("ออกจากระบบเรียบร้อยแล้ว");
+        switchMainTab('dashboard-page', document.getElementById('nav-dashboard'));
+      }
+    }
+
+    function navigateToMorePage() { switchMainTab('more-page', document.getElementById('nav-more')); }
+
+    function saveDataAndRefresh() {
+      localStorage.setItem('easycost_queues', JSON.stringify(queues));
+      localStorage.setItem('easycost_transactions', JSON.stringify(transactions));
+      localStorage.setItem('easycost_stock', JSON.stringify(stockItems));
+      renderDashboard();
+      renderQueueList();
+      renderFinancePage();
+      renderStockPage();
+    }
+
+    function resetDemoData() {
+      if (confirm("ต้องการรีเซ็ตกลับเป็นข้อมูลตัวอย่างตั้งต้นหรือไม่?")) {
+        queues = [...DEFAULT_QUEUES];
+        transactions = [...DEFAULT_TRANSACTIONS];
+        stockItems = [...DEFAULT_STOCK];
+        saveDataAndRefresh();
+      }
+    }
+
+    function switchMainTab(pageId, element) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+    }
+  </script>
 </body>
 </html>
