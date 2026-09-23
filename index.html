@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EASY COST Application</title>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="mobile-frame">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time" id="clock-time">09:41</span>
+      <div class="icons">
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-full"></i>
+      </div>
+    </div>
+
+    <!-- ================= PAGE 1: DASHBOARD ================= -->
+    <div id="dashboard-page" class="page active">
+      <div class="header">
+        <div class="brand-info">
+          <div class="brand-title">
+            <span class="currency-badge">฿</span>
+            <span class="app-name">EASY COST</span>
+          </div>
+          <div class="subtitle">
+            <i class="far fa-clock"></i> ระบบจัดการคิวและรายรับประจำวัน
+          </div>
+        </div>
+        <div class="user-avatar" onclick="navigateToMorePage()">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+
+      <!-- Sales Card -->
+      <div class="card sales-card">
+        <div class="sales-header">
+          <div class="avatar-icon">👩</div>
+          <div class="sales-info">
+            <div class="sales-title">ยอดขายวันนี้</div>
+            <div class="sales-amount" id="dash-income">฿ 0</div>
+            <div class="sales-date"><i class="fas fa-calendar-alt"></i> <span id="current-date">--</span></div>
+          </div>
+          <div class="status-pill green">
+            <span class="dot"></span> รายได้เยี่ยม
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Summary Cards -->
+      <div class="summary-grid">
+        <div class="summary-card income">
+          <div class="card-label">รายรับ</div>
+          <div class="card-value" id="summary-income">฿ 0</div>
+        </div>
+        <div class="summary-card expense">
+          <div class="card-label">รายจ่าย</div>
+          <div class="card-value" id="summary-expense">฿ 0</div>
+        </div>
+        <div class="summary-card profit">
+          <div class="card-label">กำไร</div>
+          <div class="card-value" id="summary-profit">฿ 0</div>
+        </div>
+      </div>
+
+      <!-- Customer Count Card -->
+      <div class="card customer-card">
+        <div class="customer-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="customer-info">
+          <div class="customer-label">จำนวนลูกค้า (วันนี้)</div>
+          <div class="customer-count" id="dash-customers">0 คน</div>
+        </div>
+      </div>
+
+      <!-- Actions Bar -->
+      <div class="action-buttons">
+        <button class="btn-action primary" onclick="openFinanceModal()">
+          <i class="fas fa-plus-circle"></i> บันทึกการเงิน
+        </button>
+        <button class="btn-action secondary" onclick="resetDemoData()">
+          <i class="fas fa-sync-alt"></i> รีเซ็ตตัวอย่าง
+        </button>
+      </div>
+
+      <!-- Sales Graph Card -->
+      <div class="card graph-card">
+        <div class="graph-title">ยอดขาย 7 วันล่าสุด (พันบาท)</div>
+        <div class="graph-container">
+          <div class="y-axis">
+            <span>8k</span>
+            <span>6k</span>
+            <span>4k</span>
+            <span>2k</span>
+            <span>0</span>
+          </div>
+          <div class="bars-wrapper" id="chart-wrapper"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PAGE 2: QUEUE BOOKING ================= -->
+    <div id="queue-page" class="page">
+      <div class="queue-title-header">
+        <h2>จองคิวลูกค้า</h2>
+      </div>
+
+      <div class="queue-tabs">
+        <div class="tab-item active" id="tab-current" onclick="switchQueueTab('current')">คิวปัจจุบัน (<span id="count-current">0</span>)</div>
+        <div class="tab-item" id="tab-history" onclick="switchQueueTab('history')">ประวัติการจอง (<span id="count-history">0</span>)</div>
+      </div>
+
+      <div class="queue-content">
+        <div id="queue-list"></div>
+        <button class="btn-add-queue" onclick="openQueueModal()">
+          <i class="fas fa-plus"></i> จองคิวใหม่
+        </button>
+      </div>
+    </div>
+
+    <!-- ================= PAGE 3: FINANCE (ระบบบัญชีการเงิน) ================= -->
+    <div id="finance-page" class="page">
+      <div class="queue-title-header">
+        <h2>บัญชีการเงิน</h2>
+      </div>
+
+      <!-- Financial Overview -->
+      <div class="summary-grid mb-12">
+        <div class="summary-card income">
+          <div class="card-label">รายรับรวม</div>
+          <div class="card-value" id="fin-page-income">฿ 0</div>
+        </div>
+        <div class="summary-card expense">
+          <div class="card-label">รายจ่ายรวม</div>
+          <div class="card-value" id="fin-page-expense">฿ 0</div>
+        </div>
+        <div class="summary-card profit">
+          <div class="card-label">กำไรสุทธิ</div>
+          <div class="card-value" id="fin-page-profit">฿ 0</div>
+        </div>
+      </div>
+
+      <button class="btn-add-queue primary-green mb-16" onclick="openFinanceModal()">
+        <i class="fas fa-plus-circle"></i> + บันทึกการเงินใหม่
+      </button>
+
+      <!-- Transactions List -->
+      <div class="section-title">ประวัติรายการการเงิน</div>
+      <div id="finance-list"></div>
+    </div>
+
+    <!-- ================= PAGE 4: INVENTORY / STOCK (ระบบสต็อกสินค้า) ================= -->
+    <div id="stock-page" class="page">
+      <div class="queue-title-header">
+        <h2>ระบบสต็อกสินค้า</h2>
+      </div>
+
+      <!-- Stock Summary -->
+      <div class="summary-grid mb-12">
+        <div class="summary-card profit">
+          <div class="card-label">รายการสินค้า</div>
+          <div class="card-value" id="stock-total-items">0 รายการ</div>
+        </div>
+        <div class="summary-card expense">
+          <div class="card-label">สินค้าใกล้หมด</div>
+          <div class="card-value" id="stock-low-items">0 รายการ</div>
+        </div>
+      </div>
+
+      <button class="btn-add-queue mb-16" onclick="openStockModal()">
+        <i class="fas fa-box"></i> + เพิ่มสินค้าใหม่
+      </button>
+
+      <!-- Stock List -->
+      <div class="section-title">รายการสินค้าทั้งหมด</div>
+      <div id="stock-list"></div>
+    </div>
+
+    <!-- ================= PAGE 5: MORE / SETTINGS ================= -->
+    <div id="more-page" class="page">
+      <div class="queue-title-header">
+        <h2>เพิ่มเติม & ตั้งค่า</h2>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <i class="fas fa-user-circle"></i>
+          <span class="edit-badge" onclick="editProfile()"><i class="fas fa-camera"></i></span>
+        </div>
+        <div class="profile-info">
+          <h3 id="profile-name-text">คุณสมชาย ใจดี</h3>
+          <p id="profile-shop-text">ร้านกาแฟสลับสี่ทุ่ม</p>
+          <span class="role-badge">เจ้าของร้าน (Owner)</span>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="group-title">การตั้งค่าบัญชี</div>
+        <div class="settings-item" onclick="editProfile()">
+          <div class="item-icon bg-blue"><i class="fas fa-user-edit"></i></div>
+          <div class="item-label">แก้ไขข้อมูลส่วนตัว</div>
+          <i class="fas fa-chevron-right arrow-icon"></i>
+        </div>
+        <div class="settings-item" onclick="alert('ระบบเปลี่ยนรหัสผ่านส่งลิงก์ไปยังอีเมลของคุณแล้ว')">
+          <div class="item-icon bg-green"><i class="fas fa-lock"></i></div>
+          <div class="item-label">เปลี่ยนรหัสผ่าน</div>
+          <i class="fas fa-chevron-right arrow-icon"></i>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="group-title">การแจ้งเตือน & การแสดงผล</div>
+        <div class="settings-item">
+          <div class="item-icon bg-purple"><i class="fas fa-bell"></i></div>
+          <div class="item-label">แจ้งเตือนคิวใหม่</div>
+          <label class="switch">
+            <input type="checkbox" id="toggle-notif" checked onchange="saveSettings()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="settings-item">
+          <div class="item-icon bg-teal"><i class="fas fa-print"></i></div>
+          <div class="item-label">พิมพ์ใบจองคิวอัตโนมัติ</div>
+          <label class="switch">
+            <input type="checkbox" id="toggle-print" onchange="saveSettings()">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <div class="group-title">การสนับสนุน</div>
+        <div class="settings-item logout" onclick="handleLogout()">
+          <div class="item-icon bg-red"><i class="fas fa-sign-out-alt"></i></div>
+          <div class="item-label">ออกจากระบบ</div>
+          <i class="fas fa-chevron-right arrow-icon"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-nav">
+      <div class="nav-item active" id="nav-dashboard" onclick="switchMainTab('dashboard-page', this)">
+        <i class="fas fa-home"></i>
+        <span>หน้าหลัก</span>
+      </div>
+      <div class="nav-item" id="nav-queue" onclick="switchMainTab('queue-page', this)">
+        <i class="fas fa-list-alt"></i>
+        <span>จองคิว</span>
+      </div>
+      <div class="nav-item" id="nav-finance" onclick="switchMainTab('finance-page', this)">
+        <i class="fas fa-coins"></i>
+        <span>การเงิน</span>
+      </div>
+      <div class="nav-item" id="nav-stock" onclick="switchMainTab('stock-page', this)">
+        <i class="fas fa-store"></i>
+        <span>สต็อก</span>
+      </div>
+      <div class="nav-item" id="nav-more" onclick="switchMainTab('more-page', this)">
+        <i class="fas fa-ellipsis-h"></i>
+        <span>เพิ่มเติม</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 1: จองคิวใหม่ -->
+  <div class="modal-backdrop" id="queue-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">จองคิวใหม่</div>
+        <div class="modal-close" onclick="closeQueueModal()">&times;</div>
+      </div>
+      <div class="form-group">
+        <label>ชื่อลูกค้า</label>
+        <input type="text" id="input-cust-name" class="form-control" placeholder="เช่น คุณสมชาย">
+      </div>
+      <div class="form-group">
+        <label>จำนวนคน</label>
+        <input type="number" id="input-cust-qty" class="form-control" value="2" min="1">
+      </div>
+      <div class="form-group">
+        <label>เวลาที่จอง</label>
+        <input type="time" id="input-cust-time" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>สถานะเริ่มต้น</label>
+        <select id="input-cust-status" class="form-control">
+          <option value="ordering">กำลังสั่ง</option>
+          <option value="waiting" selected>รอคิว</option>
+        </select>
+      </div>
+      <button class="btn-submit" onclick="saveNewQueue()">บันทึกข้อมูลคิว</button>
+    </div>
+  </div>
+
+  <!-- MODAL 2: บันทึกการเงิน -->
+  <div class="modal-backdrop" id="finance-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">บันทึก รายรับ / รายจ่าย</div>
+        <div class="modal-close" onclick="closeFinanceModal()">&times;</div>
+      </div>
+      <div class="form-group">
+        <label>ประเภทรายการ</label>
+        <select id="input-fin-type" class="form-control">
+          <option value="income">รายรับ (+)</option>
+          <option value="expense">รายจ่าย (-)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>หมวดหมู่</label>
+        <select id="input-fin-cat" class="form-control">
+          <option value="ยอดขายร้าน">ยอดขายร้าน</option>
+          <option value="ค่าวัตถุดิบ">ค่าวัตถุดิบ</option>
+          <option value="ค่าเช่าร้าน">ค่าเช่าร้าน</option>
+          <option value="ค่าน้ำค่าไฟ">ค่าน้ำค่าไฟ</option>
+          <option value="อื่นๆ">อื่นๆ</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>จำนวนเงิน (บาท)</label>
+        <input type="number" id="input-fin-amount" class="form-control" placeholder="0.00">
+      </div>
+      <div class="form-group">
+        <label>หมายเหตุ</label>
+        <input type="text" id="input-fin-note" class="form-control" placeholder="รายละเอียดเพิ่มเติม (ถ้ามี)">
+      </div>
+      <button class="btn-submit" onclick="saveFinanceTransaction()">บันทึกรายการ</button>
+    </div>
+  </div>
+
+  <!-- MODAL 3: เพิ่มสินค้าในสต็อก -->
+  <div class="modal-backdrop" id="stock-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">เพิ่มสินค้าใหม่</div>
+        <div class="modal-close" onclick="closeStockModal()">&times;</div>
+      </div>
+      <div class="form-group">
+        <label>ชื่อสินค้า</label>
+        <input type="text" id="input-stock-name" class="form-control" placeholder="เช่น เมล็ดกาแฟ คั่วเข้ม">
+      </div>
+      <div class="form-group">
+        <label>หมวดหมู่</label>
+        <input type="text" id="input-stock-cat" class="form-control" placeholder="เช่น วัตถุดิบ / เครื่องดื่ม">
+      </div>
+      <div class="form-group">
+        <label>จำนวนในสต็อกปัจจุบัน</label>
+        <input type="number" id="input-stock-qty" class="form-control" value="10" min="0">
+      </div>
+      <div class="form-group">
+        <label>จำนวนขั้นต่ำ (แจ้งเตือนเมื่อใกล้หมด)</label>
+        <input type="number" id="input-stock-min" class="form-control" value="3" min="1">
+      </div>
+      <div class="form-group">
+        <label>ราคาขายต่อหน่วย (บาท)</label>
+        <input type="number" id="input-stock-price" class="form-control" placeholder="0.00">
+      </div>
+      <button class="btn-submit" onclick="saveNewStockItem()">บันทึกสินค้า</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
