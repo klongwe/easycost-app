@@ -107,10 +107,11 @@
     .card-label { font-size: 12px; color: #444; margin-bottom: 2px; }
     .card-value { font-size: 14px; font-weight: 700; color: #111; word-break: break-all; }
 
-    /* Daily Ingredients Widget (เน้นหมู ไก่ ไข่) */
+    /* Daily Ingredients Widget */
     .ingredient-card { background-color: #ffffff; border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
     .ing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .ing-title { font-size: 14px; font-weight: 700; color: #333; display: flex; align-items: center; gap: 6px; }
+    .ing-title { font-size: 13px; font-weight: 700; color: #333; display: flex; align-items: center; gap: 6px; }
+    .ing-btn-group { display: flex; gap: 4px; }
     .ing-list { display: flex; flex-direction: column; gap: 8px; }
     .ing-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #eee; }
     .ing-item:last-child { border-bottom: none; }
@@ -185,16 +186,25 @@
     .item-amount-inc { font-size: 15px; font-weight: 700; color: #27a863; }
     .item-amount-exp { font-size: 15px; font-weight: 700; color: #e53e3e; }
 
-    /* Stock UI (ตามสั่ง) */
+    /* Stock UI (แบบไม่มีรูปภาพ) */
     .search-container { position: relative; margin-bottom: 12px; }
     .search-input { width: 100%; padding: 10px 14px 10px 38px; border-radius: 20px; border: 1px solid #e2e8f0; background-color: #ffffff; font-size: 13px; outline: none; }
     .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; }
     .filter-chips { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
     .chip { padding: 6px 14px; border-radius: 16px; background-color: #ffffff; font-size: 12px; color: #555; cursor: pointer; white-space: nowrap; border: 1px solid #e2e8f0; }
     .chip.active { background-color: #704214; color: #fff; border-color: #704214; }
-    .stock-item-row { background: #ffffff; border-radius: 16px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-    .stock-item-left { display: flex; align-items: center; gap: 12px; }
-    .stock-img { width: 52px; height: 52px; border-radius: 12px; object-fit: cover; background-color: #eee; }
+    
+    .stock-item-row { 
+      background: #ffffff; 
+      border-radius: 16px; 
+      padding: 12px 14px; 
+      margin-bottom: 10px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+    }
+    .stock-item-left { flex: 1; }
     .stock-title-text { font-size: 14px; font-weight: 700; color: #222; }
     .stock-sku-text { font-size: 11px; color: #888; margin: 2px 0; }
     .stock-qty-text { font-size: 12px; color: #444; }
@@ -310,13 +320,18 @@
         <div class="summary-card profit"><div class="card-label">กำไร</div><div class="card-value" id="summary-profit">฿ 0</div></div>
       </div>
 
-      <!-- DAILY INGREDIENTS PRICE WIDGET (หมู/ไก่/ไข่/ผัก) -->
+      <!-- DAILY INGREDIENTS PRICE WIDGET -->
       <div class="ingredient-card">
         <div class="ing-header">
-          <div class="ing-title"><i class="fas fa-drumstick-bite" style="color: #e6a23c;"></i> ราคาวัตถุดิบตลาดสดวันนี้</div>
-          <button class="btn-action warning" style="padding: 4px 10px; font-size: 11px;" onclick="openIngModal()">
-            <i class="fas fa-edit"></i> อัปเดตราคา
-          </button>
+          <div class="ing-title"><i class="fas fa-drumstick-bite" style="color: #e6a23c;"></i> ราคาตลาดสดวันนี้</div>
+          <div class="ing-btn-group">
+            <button class="btn-action warning" style="padding: 4px 8px; font-size: 11px;" onclick="fetchMarketPrices(true)">
+              <i class="fas fa-sync-alt"></i> ดึงราคาใหม่
+            </button>
+            <button class="btn-action primary" style="padding: 4px 8px; font-size: 11px;" onclick="openIngModal()">
+              <i class="fas fa-plus"></i> เพิ่ม
+            </button>
+          </div>
         </div>
         <div class="ing-list" id="ingredient-price-list"></div>
       </div>
@@ -356,7 +371,7 @@
       </div>
     </div>
 
-    <!-- PAGE 3: STOCK -->
+    <!-- PAGE 3: STOCK (ไม่มีรูปภาพ) -->
     <div id="stock-page" class="page">
       <div class="top-header">
         <div class="top-header-left">
@@ -514,19 +529,26 @@
     </div>
   </div>
 
+  <!-- MODAL เพิ่มติดตามราคาวัตถุดิบ (แบบประเมินราคาออโต้) -->
   <div class="modal-backdrop" id="ing-modal">
     <div class="modal-content">
-      <div class="modal-header"><div class="modal-title">อัปเดตราคาวัตถุดิบวันนี้</div><div class="modal-close" onclick="closeIngModal()">&times;</div></div>
-      <div class="form-group"><label>ชื่อวัตถุดิบตลาดสด</label><input type="text" id="input-ing-name" class="form-control" placeholder="เช่น เนื้อหมูบด (กก.)"></div>
-      <div class="form-group"><label>หน่วยนับ</label><input type="text" id="input-ing-unit" class="form-control" placeholder="เช่น กก., แผง, ลิตร"></div>
-      <div class="form-group"><label>ราคาเมื่อวาน (บาท)</label><input type="number" id="input-ing-prev" class="form-control" placeholder="0.00"></div>
-      <div class="form-group"><label>ราคาในวันนี้ (บาท)</label><input type="number" id="input-ing-today" class="form-control" placeholder="0.00"></div>
-      <button class="btn-submit" onclick="saveIngredientPrice()">บันทึกราคาประจำวัน</button>
+      <div class="modal-header">
+        <div class="modal-title">เพิ่มรายการติดตามราคาตลาด</div>
+        <div class="modal-close" onclick="closeIngModal()">&times;</div>
+      </div>
+      <div class="form-group">
+        <label>ชื่อวัตถุดิบ (เช่น เนื้อวัว, กุ้งสด, พริกจินดา)</label>
+        <input type="text" id="input-ing-name" class="form-control" placeholder="พิมพ์ชื่อวัตถุดิบ...">
+      </div>
+      <div class="form-group">
+        <label>หน่วยนับ</label>
+        <input type="text" id="input-ing-unit" class="form-control" placeholder="เช่น กก., แผง, ถุง">
+      </div>
+      <button class="btn-submit" onclick="addNewIngredientTrack()">เพิ่มวัตถุดิบ (ประเมินราคาออโต้)</button>
     </div>
   </div>
 
   <script>
-    // ข้อมูลตัวอย่างสำหรับร้านอาหารตามสั่ง
     const DEFAULT_QUEUES = [
       { id: 1, name: "โต๊ะ 1 (กระเพราหมูสับ+ไข่ดาว)", qty: 1, time: "12:10 น.", status: "ordering" },
       { id: 2, name: "โต๊ะ 3 (คะน้าหมูกรอบ 2 จาน)", qty: 2, time: "12:15 น.", status: "waiting" },
@@ -539,12 +561,12 @@
     ];
 
     const DEFAULT_STOCK = [
-      { id: 1, name: "เนื้อหมูสับสด", sku: "RM001", category: "เนื้อสัตว์", qty: 8, min: 3, price: 140, img: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=100" },
-      { id: 2, name: "อกไก่สด", sku: "RM002", category: "เนื้อสัตว์", qty: 12, min: 4, price: 85, img: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=100" },
-      { id: 3, name: "ไข่ไก่ เบอร์ 2", sku: "RM003", category: "ไข่สด", qty: 2, min: 3, price: 125, img: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=100" },
-      { id: 4, name: "ใบกระเพราสด", sku: "RM004", category: "ผักสด", qty: 5, min: 2, price: 30, img: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=100" },
-      { id: 5, name: "หมูกรอบทำเอง", sku: "RM005", category: "เนื้อสัตว์", qty: 0, min: 2, price: 220, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=100" },
-      { id: 6, name: "น้ำมันพืชมรกต 1L", sku: "RM006", category: "เครื่องปรุง", qty: 10, min: 4, price: 48, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=100" }
+      { id: 1, name: "เนื้อหมูสับสด", sku: "RM001", category: "เนื้อสัตว์", qty: 8, min: 3, price: 140 },
+      { id: 2, name: "อกไก่สด", sku: "RM002", category: "เนื้อสัตว์", qty: 12, min: 4, price: 85 },
+      { id: 3, name: "ไข่ไก่ เบอร์ 2", sku: "RM003", category: "ไข่สด", qty: 2, min: 3, price: 125 },
+      { id: 4, name: "ใบกระเพราสด", sku: "RM004", category: "ผักสด", qty: 5, min: 2, price: 30 },
+      { id: 5, name: "หมูกรอบทำเอง", sku: "RM005", category: "เนื้อสัตว์", qty: 0, min: 2, price: 220 },
+      { id: 6, name: "น้ำมันพืชมรกต 1L", sku: "RM006", category: "เครื่องปรุง", qty: 10, min: 4, price: 48 }
     ];
 
     const DEFAULT_COUPONS = [
@@ -554,10 +576,10 @@
     ];
 
     const DEFAULT_INGREDIENTS = [
-      { id: 1, name: "หมูเนื้อแดง / หมูสับ", unit: "1 กิโลกรัม", prevPrice: 140, todayPrice: 145 },
-      { id: 2, name: "เนื้ออกไก่สด", unit: "1 กิโลกรัม", prevPrice: 88, todayPrice: 85 },
-      { id: 3, name: "ไข่ไก่ (เบอร์ 2)", unit: "1 แผง (30 ฟอง)", prevPrice: 120, todayPrice: 125 },
-      { id: 4, name: "ผักกาดขาว / คะน้า", unit: "1 กิโลกรัม", prevPrice: 35, todayPrice: 35 }
+      { id: 1, name: "หมูเนื้อแดง / หมูสับ", unit: "1 กิโลกรัม", basePrice: 140, prevPrice: 140, todayPrice: 145 },
+      { id: 2, name: "เนื้ออกไก่สด", unit: "1 กิโลกรัม", basePrice: 85, prevPrice: 88, todayPrice: 85 },
+      { id: 3, name: "ไข่ไก่ (เบอร์ 2)", unit: "1 แผง (30 ฟอง)", basePrice: 120, prevPrice: 120, todayPrice: 125 },
+      { id: 4, name: "ผักกาดขาว / คะน้า", unit: "1 กิโลกรัม", basePrice: 35, prevPrice: 35, todayPrice: 38 }
     ];
 
     const DEFAULT_PROFILE = { name: "คุณป้าเจ๊เพ็ญ", shop: "ร้านตามสั่งเจ๊เพ็ญ รสเด็ด" };
@@ -575,8 +597,8 @@
 
     let queues = JSON.parse(localStorage.getItem('easycost_queues')) || DEFAULT_QUEUES;
     let transactions = JSON.parse(localStorage.getItem('easycost_transactions')) || DEFAULT_TRANSACTIONS;
-    let stockItems = JSON.parse(localStorage.getItem('easycost_stock_v3')) || DEFAULT_STOCK;
-    let ingredients = JSON.parse(localStorage.getItem('easycost_ingredients')) || DEFAULT_INGREDIENTS;
+    let stockItems = JSON.parse(localStorage.getItem('easycost_stock_v4')) || DEFAULT_STOCK;
+    let ingredients = JSON.parse(localStorage.getItem('easycost_ingredients_v2')) || DEFAULT_INGREDIENTS;
     let profile = JSON.parse(localStorage.getItem('easycost_profile')) || DEFAULT_PROFILE;
     let settings = JSON.parse(localStorage.getItem('easycost_settings')) || DEFAULT_SETTINGS;
     
@@ -587,12 +609,12 @@
       updateClock();
       setInterval(updateClock, 1000);
       setCurrentDate();
+      fetchMarketPrices(false);
       renderDashboard();
       renderQueueList();
       renderFinancePage();
       renderStockPage();
       renderCoupons();
-      renderIngredients();
       loadProfileAndSettings();
     });
 
@@ -605,6 +627,29 @@
       const months = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
       const now = new Date();
       document.getElementById('current-date').innerText = `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear() + 543}`;
+    }
+
+    /* ฟังก์ชันจำลองการสุ่ม/ดึงราคาตลาดสดให้อัตโนมัติ */
+    function fetchMarketPrices(isManualAlert = false) {
+      const todayStr = new Date().toDateString();
+      const lastUpdate = localStorage.getItem('easycost_last_price_update');
+
+      if (isManualAlert || lastUpdate !== todayStr) {
+        ingredients.forEach(ing => {
+          ing.prevPrice = ing.todayPrice || ing.basePrice;
+          const changePercent = (Math.random() * 0.2) - 0.1; 
+          const calculatedPrice = Math.round((ing.basePrice || ing.todayPrice) * (1 + changePercent));
+          ing.todayPrice = Math.max(10, calculatedPrice);
+        });
+
+        localStorage.setItem('easycost_ingredients_v2', JSON.stringify(ingredients));
+        localStorage.setItem('easycost_last_price_update', todayStr);
+        renderIngredients();
+
+        if (isManualAlert) {
+          alert("ดึงข้อมูลราคาวัตถุดิบสดจากตลาดวันนี้เรียบร้อยแล้ว!");
+        }
+      }
     }
 
     function calculateTotals() {
@@ -752,12 +797,9 @@
         card.className = 'stock-item-row';
         card.innerHTML = `
           <div class="stock-item-left">
-            <img src="${item.img || 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=100'}" class="stock-img" alt="${item.name}">
-            <div>
-              <div class="stock-title-text">${item.name}</div>
-              <div class="stock-sku-text">รหัสวัตถุดิบ : ${item.sku || 'RM000'}</div>
-              <div class="stock-qty-text">คงเหลือ <span style="color: ${item.qty === 0 ? '#e63946' : '#222'}; font-weight:700;">${item.qty} ชิ้น/กก./แผง</span></div>
-            </div>
+            <div class="stock-title-text">${item.name}</div>
+            <div class="stock-sku-text">รหัสวัตถุดิบ : ${item.sku || 'RM000'} | หมวดหมู่: ${item.category || 'ทั่วไป'}</div>
+            <div class="stock-qty-text">คงเหลือ <span style="color: ${item.qty === 0 ? '#e63946' : '#222'}; font-weight:700;">${item.qty} ชิ้น/กก./แผง</span></div>
           </div>
           <div style="text-align: right;">
             <span class="status-badge-pill ${badgeClass}">${badgeText}</span>
@@ -787,7 +829,7 @@
     }
 
     function deleteStockItem(id) {
-      if (confirm("ต้องการลบวัตถุดิบลานี้ใช่หรือไม่?")) { stockItems = stockItems.filter(i => i.id !== id); saveDataAndRefresh(); }
+      if (confirm("ต้องการลบวัตถุดิบนี้ใช่หรือไม่?")) { stockItems = stockItems.filter(i => i.id !== id); saveDataAndRefresh(); }
     }
 
     function renderCoupons() {
@@ -889,7 +931,7 @@
       const price = parseFloat(document.getElementById('input-stock-price').value) || 0;
 
       if (!name) return alert('กรุณากรอกชื่อวัตถุดิบ');
-      stockItems.push({ id: Date.now(), name, sku, category, qty, min, price, img: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=100" });
+      stockItems.push({ id: Date.now(), name, sku, category, qty, min, price });
       saveDataAndRefresh();
       closeStockModal();
       document.getElementById('input-stock-name').value = '';
@@ -899,21 +941,49 @@
     function openIngModal() { document.getElementById('ing-modal').classList.add('active'); }
     function closeIngModal() { document.getElementById('ing-modal').classList.remove('active'); }
 
-    function saveIngredientPrice() {
+    /* ฟังก์ชันเพิ่มรายการติดตามวัตถุดิบ (ประเมินราคาออโต้) */
+    function addNewIngredientTrack() {
       const name = document.getElementById('input-ing-name').value.trim();
-      const unit = document.getElementById('input-ing-unit').value.trim() || "หน่วย";
-      const prevPrice = parseFloat(document.getElementById('input-ing-prev').value) || 0;
-      const todayPrice = parseFloat(document.getElementById('input-ing-today').value) || 0;
+      const unit = document.getElementById('input-ing-unit').value.trim() || "กก.";
 
       if (!name) return alert('กรุณากรอกชื่อวัตถุดิบ');
-      ingredients.push({ id: Date.now(), name, unit, prevPrice, todayPrice });
-      localStorage.setItem('easycost_ingredients', JSON.stringify(ingredients));
+
+      let calculatedPrice = 60; 
+      const lowerName = name.toLowerCase();
+      
+      if (lowerName.includes('เนื้อวัว') || lowerName.includes('วัว') || lowerName.includes('เนื้อสัน')) {
+        calculatedPrice = 280; 
+      } else if (lowerName.includes('หมูกรอบ')) {
+        calculatedPrice = 220;
+      } else if (lowerName.includes('หมู')) {
+        calculatedPrice = 145;
+      } else if (lowerName.includes('กุ้ง') || lowerName.includes('หมึก') || lowerName.includes('ทะเล')) {
+        calculatedPrice = 200;
+      } else if (lowerName.includes('ไก่')) {
+        calculatedPrice = 85;
+      } else if (lowerName.includes('ไข่')) {
+        calculatedPrice = 125;
+      } else if (lowerName.includes('ผัก') || lowerName.includes('พริก') || lowerName.includes('กระเพรา')) {
+        calculatedPrice = 40;
+      }
+
+      ingredients.push({ 
+        id: Date.now(), 
+        name: name, 
+        unit: unit, 
+        basePrice: calculatedPrice, 
+        prevPrice: calculatedPrice, 
+        todayPrice: calculatedPrice 
+      });
+
+      localStorage.setItem('easycost_ingredients_v2', JSON.stringify(ingredients));
       renderIngredients();
       closeIngModal();
+      
       document.getElementById('input-ing-name').value = '';
       document.getElementById('input-ing-unit').value = '';
-      document.getElementById('input-ing-prev').value = '';
-      document.getElementById('input-ing-today').value = '';
+      
+      alert(`เพิ่ม "${name}" เรียบร้อย! (ระบบประเมินราคาตลาดเริ่มต้นให้ที่ ฿${calculatedPrice})`);
     }
 
     function loadProfileAndSettings() {
@@ -952,8 +1022,8 @@
     function saveDataAndRefresh() {
       localStorage.setItem('easycost_queues', JSON.stringify(queues));
       localStorage.setItem('easycost_transactions', JSON.stringify(transactions));
-      localStorage.setItem('easycost_stock_v3', JSON.stringify(stockItems));
-      localStorage.setItem('easycost_ingredients', JSON.stringify(ingredients));
+      localStorage.setItem('easycost_stock_v4', JSON.stringify(stockItems));
+      localStorage.setItem('easycost_ingredients_v2', JSON.stringify(ingredients));
       renderDashboard();
       renderQueueList();
       renderFinancePage();
