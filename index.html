@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EASY COST Application</title>
+  <title>EASY COST - ร้านอาหารตามสั่ง</title>
   
   <!-- Font & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -50,10 +50,7 @@
       z-index: 10;
     }
 
-    .status-bar .icons i {
-      margin-left: 5px;
-      font-size: 12px;
-    }
+    .status-bar .icons i { margin-left: 5px; font-size: 12px; }
 
     .page {
       display: none;
@@ -64,118 +61,83 @@
 
     .page.active { display: block; }
 
-    .header {
+    /* Header Bar */
+    .top-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      padding: 4px 0 12px 0;
     }
 
+    .top-header-left { display: flex; align-items: center; gap: 12px; }
+    .back-btn { font-size: 18px; color: #333; cursor: pointer; }
+    .page-title-text { font-size: 18px; font-weight: 700; color: #111; }
+    .cart-btn { font-size: 18px; color: #333; cursor: pointer; }
+
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .brand-title { display: flex; align-items: center; gap: 6px; }
-
     .currency-badge {
-      background-color: #e6c8a0;
-      color: #704214;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: bold;
+      background-color: #e6c8a0; color: #704214; width: 24px; height: 24px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: bold;
     }
-
     .app-name { font-size: 20px; font-weight: 700; color: #3d2b1f; }
     .subtitle { font-size: 12px; color: #777; margin-top: 2px; }
     .user-avatar i { font-size: 36px; color: #c89d7c; cursor: pointer; }
 
-    .card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-    }
-
+    /* Cards & Layout */
+    .card { background: #ffffff; border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
     .sales-card { background-color: #ededea; }
     .sales-header { display: flex; align-items: center; }
-
-    .avatar-icon {
-      font-size: 36px;
-      margin-right: 12px;
-      background: #f8db75;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+    .avatar-icon { font-size: 36px; margin-right: 12px; background: #f8db75; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
     .sales-info { flex: 1; }
     .sales-title { font-size: 15px; font-weight: 600; color: #444; }
     .sales-amount { font-size: 22px; font-weight: 700; color: #111; margin: 2px 0; }
     .sales-date { font-size: 12px; color: #666; }
 
-    .status-pill {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
+    .status-pill { font-size: 11px; padding: 4px 10px; border-radius: 12px; display: flex; align-items: center; gap: 4px; }
     .status-pill.green { background-color: #d1f2d9; color: #28a745; font-weight: 600; }
     .status-pill .dot { width: 6px; height: 6px; background-color: #28a745; border-radius: 50%; }
 
-    .summary-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-    }
-
-    .summary-card {
-      border-radius: 16px;
-      padding: 12px 6px;
-      text-align: center;
-    }
-
+    .summary-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .summary-card { border-radius: 16px; padding: 12px 6px; text-align: center; }
     .summary-card.income { background-color: #cbebd5; }
     .summary-card.expense { background-color: #f7cbcc; }
     .summary-card.profit { background-color: #f5e4bc; }
-
     .card-label { font-size: 12px; color: #444; margin-bottom: 2px; }
     .card-value { font-size: 14px; font-weight: 700; color: #111; word-break: break-all; }
 
+    /* Daily Ingredients Widget (เน้นหมู ไก่ ไข่) */
+    .ingredient-card { background-color: #ffffff; border-radius: 18px; padding: 14px 16px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+    .ing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .ing-title { font-size: 14px; font-weight: 700; color: #333; display: flex; align-items: center; gap: 6px; }
+    .ing-list { display: flex; flex-direction: column; gap: 8px; }
+    .ing-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #eee; }
+    .ing-item:last-child { border-bottom: none; }
+    .ing-name { font-size: 13px; font-weight: 500; color: #444; }
+    .ing-unit { font-size: 11px; color: #888; }
+    .ing-price-box { text-align: right; }
+    .ing-price { font-size: 14px; font-weight: 700; color: #111; }
+    .ing-change { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 8px; }
+    .ing-up { background-color: #fce8e6; color: #d93025; }
+    .ing-down { background-color: #e6f4ea; color: #1e8e3e; }
+    .ing-flat { background-color: #f1f3f4; color: #5f6368; }
+
     .customer-card { display: flex; align-items: center; background-color: #ededea; }
-
-    .customer-icon {
-      width: 42px; height: 42px; background: #dedede; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin-right: 14px; color: #665243;
-    }
-
+    .customer-icon { width: 42px; height: 42px; background: #dedede; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 14px; color: #665243; }
     .customer-label { font-size: 13px; color: #555; }
     .customer-count { font-size: 18px; font-weight: 700; color: #111; }
 
     .action-buttons { display: flex; gap: 8px; margin-bottom: 12px; }
-
-    .btn-action {
-      flex: 1; padding: 10px; border: none; border-radius: 12px;
-      font-size: 13px; font-weight: 600; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-    }
-
+    .btn-action { flex: 1; padding: 10px; border: none; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
     .btn-action.primary { background-color: #3fa55b; color: #fff; }
     .btn-action.secondary { background-color: #d0d5dd; color: #333; }
+    .btn-action.warning { background-color: #e6a23c; color: #fff; }
 
     .graph-card { background-color: #ededea; }
     .graph-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; color: #222; }
-
     .graph-container { display: flex; height: 140px; align-items: flex-end; }
     .y-axis { display: flex; flex-direction: column; justify-content: space-between; height: 100%; font-size: 10px; color: #888; padding-right: 8px; padding-bottom: 20px; }
-
     .bars-wrapper { display: flex; justify-content: space-between; align-items: flex-end; flex: 1; height: 100%; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
     .bar-group { display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
     .bar-pair { display: flex; align-items: flex-end; gap: 2px; height: 100px; }
@@ -187,130 +149,99 @@
     /* Queue Page */
     .queue-title-header h2 { text-align: center; font-size: 20px; font-weight: 700; margin: 10px 0 16px 0; }
     .queue-tabs { display: flex; border-bottom: 2px solid #e0e0e0; margin-bottom: 16px; }
-
-    .tab-item {
-      flex: 1; text-align: center; padding: 8px 0; font-size: 14px;
-      font-weight: 600; color: #888; cursor: pointer; position: relative;
-    }
-
+    .tab-item { flex: 1; text-align: center; padding: 8px 0; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; position: relative; }
     .tab-item.active { color: #111; }
     .tab-item.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 2px; background-color: #8c6239; }
-
-    .queue-card {
-      background: #ffffff; border-radius: 14px; padding: 12px 14px;
-      margin-bottom: 10px; display: flex; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .queue-number {
-      width: 40px; height: 40px; border-radius: 10px; color: #fff;
-      font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-right: 12px;
-    }
-
+    .queue-card { background: #ffffff; border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .queue-number { width: 40px; height: 40px; border-radius: 10px; color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-right: 12px; }
     .bg-ordering { background-color: #3fa55b; }
     .bg-waiting { background-color: #4a80d6; }
     .bg-completed { background-color: #828a95; }
-
     .queue-details { flex: 1; }
     .customer-name { font-size: 15px; font-weight: 600; color: #222; }
     .customer-qty { font-size: 12px; color: #666; margin-top: 2px; }
     .queue-status { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
-
     .status-badge { font-size: 11px; padding: 3px 8px; border-radius: 8px; font-weight: 600; cursor: pointer; }
     .status-badge.ordering { background-color: #d1f2d9; color: #27a863; }
     .status-badge.waiting { background-color: #dbe7f9; color: #4a80d6; }
     .status-badge.completed { background-color: #e5e7eb; color: #6b7280; }
-
     .time-label { font-size: 12px; color: #555; }
     .btn-delete { color: #e53e3e; font-size: 12px; margin-left: 8px; cursor: pointer; }
-
-    .btn-add-queue {
-      width: 100%; background-color: #8c5a2b; color: #fff; border: none;
-      padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 600; margin-top: 10px; cursor: pointer;
-    }
-
+    .btn-add-queue { width: 100%; background-color: #8c5a2b; color: #fff; border: none; padding: 12px; border-radius: 12px; font-size: 15px; font-weight: 600; margin-top: 10px; cursor: pointer; }
     .btn-add-queue.primary-green { background-color: #3fa55b; }
 
-    /* Finance & Stock List Items */
+    /* Finance & Stock */
     .mb-12 { margin-bottom: 12px; }
     .mb-16 { margin-bottom: 16px; }
     .section-title { font-size: 14px; font-weight: 700; color: #444; margin: 12px 0 8px 0; }
-
-    .item-card {
-      background: #ffffff; border-radius: 14px; padding: 12px 14px;
-      margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-    }
-
+    .item-card { background: #ffffff; border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
     .item-left { display: flex; align-items: center; gap: 12px; }
-
-    .item-tag {
-      width: 36px; height: 36px; border-radius: 10px; display: flex;
-      align-items: center; justify-content: center; font-size: 16px; color: white;
-    }
-
+    .item-tag { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; }
     .tag-income { background-color: #3fa55b; }
     .tag-expense { background-color: #ea868f; }
-
     .item-title { font-size: 14px; font-weight: 600; color: #222; }
     .item-sub { font-size: 11px; color: #777; margin-top: 2px; }
-
     .item-right { text-align: right; }
     .item-amount-inc { font-size: 15px; font-weight: 700; color: #27a863; }
     .item-amount-exp { font-size: 15px; font-weight: 700; color: #e53e3e; }
 
-    /* Stock Specific */
-    .stock-qty-badge {
-      font-size: 12px; padding: 2px 8px; border-radius: 10px; font-weight: 600; display: inline-block; margin-top: 4px;
-    }
+    /* Stock UI (ตามสั่ง) */
+    .search-container { position: relative; margin-bottom: 12px; }
+    .search-input { width: 100%; padding: 10px 14px 10px 38px; border-radius: 20px; border: 1px solid #e2e8f0; background-color: #ffffff; font-size: 13px; outline: none; }
+    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; }
+    .filter-chips { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+    .chip { padding: 6px 14px; border-radius: 16px; background-color: #ffffff; font-size: 12px; color: #555; cursor: pointer; white-space: nowrap; border: 1px solid #e2e8f0; }
+    .chip.active { background-color: #704214; color: #fff; border-color: #704214; }
+    .stock-item-row { background: #ffffff; border-radius: 16px; padding: 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .stock-item-left { display: flex; align-items: center; gap: 12px; }
+    .stock-img { width: 52px; height: 52px; border-radius: 12px; object-fit: cover; background-color: #eee; }
+    .stock-title-text { font-size: 14px; font-weight: 700; color: #222; }
+    .stock-sku-text { font-size: 11px; color: #888; margin: 2px 0; }
+    .stock-qty-text { font-size: 12px; color: #444; }
+    .status-badge-pill { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; display: inline-block; }
+    .badge-normal { background-color: #e6f4ea; color: #1e8e3e; }
+    .badge-low { background-color: #fef7e0; color: #b06000; }
+    .badge-out { background-color: #fce8e6; color: #d93025; }
+    .stock-actions { display: flex; align-items: center; gap: 6px; }
+    .btn-stock-qty { width: 26px; height: 26px; border-radius: 50%; border: 1px solid #ccc; background: #f8f8f8; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+    .btn-floating-add { position: absolute; bottom: 80px; right: 16px; background-color: #704214; color: white; padding: 10px 18px; border-radius: 25px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(112, 66, 20, 0.3); cursor: pointer; border: none; z-index: 5; }
 
-    .qty-ok { background-color: #d1f2d9; color: #27a863; }
-    .qty-low { background-color: #f7cbcc; color: #e53e3e; }
-
-    .stock-actions { display: flex; align-items: center; gap: 8px; }
-
-    .btn-stock-qty {
-      width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ccc;
-      background: #f8f8f8; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    }
-
-    .btn-stock-qty:active { background: #e0e0e0; }
+    /* Promotion Banner */
+    .banner-promo { width: 100%; height: 120px; border-radius: 16px; background: linear-gradient(135deg, #e67e22, #d35400); color: white; padding: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; position: relative; overflow: hidden; }
+    .banner-text h3 { font-size: 22px; font-weight: 800; }
+    .banner-text p { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+    .banner-img { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.4); }
+    .coupon-card { background: #ffffff; border-radius: 16px; padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .coupon-icon-box { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+    .coupon-info { flex: 1; margin-left: 12px; }
+    .coupon-title { font-size: 14px; font-weight: 700; color: #222; }
+    .coupon-desc { font-size: 11px; color: #777; margin-top: 2px; }
+    .btn-use-coupon { background-color: #27a863; color: white; border: none; padding: 6px 12px; border-radius: 14px; font-size: 11px; font-weight: 600; cursor: pointer; }
+    .footer-banner { background: #fff4e5; border-radius: 16px; padding: 12px; display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+    .footer-banner-icon { font-size: 26px; }
+    .footer-banner-text { font-size: 13px; font-weight: 700; color: #d97706; }
 
     /* More Page */
-    .profile-card {
-      background: #ffffff; border-radius: 20px; padding: 16px; display: flex;
-      align-items: center; gap: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-
+    .profile-card { background: #ffffff; border-radius: 20px; padding: 16px; display: flex; align-items: center; gap: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
     .profile-avatar { position: relative; font-size: 54px; color: #c89d7c; display: flex; align-items: center; }
-
-    .edit-badge {
-      position: absolute; bottom: 0; right: -2px; background: #8c5a2b; color: #fff;
-      font-size: 10px; width: 22px; height: 22px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; border: 2px solid #fff; cursor: pointer;
-    }
-
+    .edit-badge { position: absolute; bottom: 0; right: -2px; background: #8c5a2b; color: #fff; font-size: 10px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; cursor: pointer; }
     .profile-info h3 { font-size: 16px; font-weight: 700; color: #222; }
     .profile-info p { font-size: 13px; color: #666; margin-bottom: 4px; }
     .role-badge { background: #e6c8a0; color: #704214; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
-
     .settings-group { background: #ffffff; border-radius: 18px; padding: 12px 16px; margin-bottom: 14px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
     .group-title { font-size: 12px; font-weight: 600; color: #888; margin-bottom: 10px; text-transform: uppercase; }
-
     .settings-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
     .settings-item:last-child { border-bottom: none; }
-
     .item-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; margin-right: 12px; }
     .bg-blue { background-color: #4a80d6; }
     .bg-green { background-color: #3fa55b; }
     .bg-purple { background-color: #9c27b0; }
     .bg-teal { background-color: #009688; }
     .bg-red { background-color: #f56c6c; }
-
     .item-label { flex: 1; font-size: 14px; font-weight: 500; color: #333; }
     .arrow-icon { font-size: 12px; color: #ccc; }
     .settings-item.logout .item-label { color: #f56c6c; font-weight: 600; }
 
-    /* Switch Toggle */
     .switch { position: relative; display: inline-block; width: 42px; height: 24px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; border-radius: 24px; }
@@ -318,22 +249,12 @@
     input:checked + .slider { background-color: #3fa55b; }
     input:checked + .slider:before { transform: translateX(18px); }
 
-    /* Bottom Nav */
-    .bottom-nav {
-      position: absolute; bottom: 0; width: 100%; height: 65px; background-color: #ffffff;
-      display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; z-index: 10;
-    }
-
+    .bottom-nav { position: absolute; bottom: 0; width: 100%; height: 65px; background-color: #ffffff; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #eee; z-index: 10; }
     .nav-item { display: flex; flex-direction: column; align-items: center; color: #888; font-size: 10px; cursor: pointer; }
     .nav-item i { font-size: 18px; margin-bottom: 3px; }
     .nav-item.active { color: #704214; font-weight: 700; }
 
-    /* Modals */
-    .modal-backdrop {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);
-      display: none; justify-content: center; align-items: center; z-index: 100;
-    }
-
+    .modal-backdrop { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: none; justify-content: center; align-items: center; z-index: 100; }
     .modal-backdrop.active { display: flex; }
     .modal-content { background: #fff; width: 88%; border-radius: 20px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
     .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
@@ -366,73 +287,57 @@
             <span class="currency-badge">฿</span>
             <span class="app-name">EASY COST</span>
           </div>
-          <div class="subtitle">
-            <i class="far fa-clock"></i> ระบบจัดการคิวและรายรับประจำวัน
-          </div>
+          <div class="subtitle"><i class="far fa-clock"></i> ร้านอาหารตามสั่ง - ระบบจัดการยอดขาย</div>
         </div>
-        <div class="user-avatar" onclick="navigateToMorePage()">
-          <i class="fas fa-user-circle"></i>
-        </div>
+        <div class="user-avatar" onclick="navigateToMorePage()"><i class="fas fa-user-circle"></i></div>
       </div>
 
       <div class="card sales-card">
         <div class="sales-header">
-          <div class="avatar-icon">👩</div>
+          <div class="avatar-icon">🍳</div>
           <div class="sales-info">
             <div class="sales-title">ยอดขายวันนี้</div>
             <div class="sales-amount" id="dash-income">฿ 0</div>
             <div class="sales-date"><i class="fas fa-calendar-alt"></i> <span id="current-date">--</span></div>
           </div>
-          <div class="status-pill green">
-            <span class="dot"></span> รายได้เยี่ยม
-          </div>
+          <div class="status-pill green"><span class="dot"></span> ขายดีมาก</div>
         </div>
       </div>
 
       <div class="summary-grid">
-        <div class="summary-card income">
-          <div class="card-label">รายรับ</div>
-          <div class="card-value" id="summary-income">฿ 0</div>
+        <div class="summary-card income"><div class="card-label">รายรับ</div><div class="card-value" id="summary-income">฿ 0</div></div>
+        <div class="summary-card expense"><div class="card-label">รายจ่าย</div><div class="card-value" id="summary-expense">฿ 0</div></div>
+        <div class="summary-card profit"><div class="card-label">กำไร</div><div class="card-value" id="summary-profit">฿ 0</div></div>
+      </div>
+
+      <!-- DAILY INGREDIENTS PRICE WIDGET (หมู/ไก่/ไข่/ผัก) -->
+      <div class="ingredient-card">
+        <div class="ing-header">
+          <div class="ing-title"><i class="fas fa-drumstick-bite" style="color: #e6a23c;"></i> ราคาวัตถุดิบตลาดสดวันนี้</div>
+          <button class="btn-action warning" style="padding: 4px 10px; font-size: 11px;" onclick="openIngModal()">
+            <i class="fas fa-edit"></i> อัปเดตราคา
+          </button>
         </div>
-        <div class="summary-card expense">
-          <div class="card-label">รายจ่าย</div>
-          <div class="card-value" id="summary-expense">฿ 0</div>
-        </div>
-        <div class="summary-card profit">
-          <div class="card-label">กำไร</div>
-          <div class="card-value" id="summary-profit">฿ 0</div>
-        </div>
+        <div class="ing-list" id="ingredient-price-list"></div>
       </div>
 
       <div class="card customer-card">
-        <div class="customer-icon">
-          <i class="fas fa-users"></i>
-        </div>
+        <div class="customer-icon"><i class="fas fa-users"></i></div>
         <div class="customer-info">
-          <div class="customer-label">จำนวนลูกค้า (วันนี้)</div>
+          <div class="customer-label">จำนวนจาน/ลูกค้า (วันนี้)</div>
           <div class="customer-count" id="dash-customers">0 คน</div>
         </div>
       </div>
 
       <div class="action-buttons">
-        <button class="btn-action primary" onclick="openFinanceModal()">
-          <i class="fas fa-plus-circle"></i> บันทึกการเงิน
-        </button>
-        <button class="btn-action secondary" onclick="resetDemoData()">
-          <i class="fas fa-sync-alt"></i> รีเซ็ตตัวอย่าง
-        </button>
+        <button class="btn-action primary" onclick="openFinanceModal()"><i class="fas fa-plus-circle"></i> บันทึกการเงิน</button>
+        <button class="btn-action secondary" onclick="resetDemoData()"><i class="fas fa-sync-alt"></i> รีเซ็ตตัวอย่าง</button>
       </div>
 
       <div class="card graph-card">
         <div class="graph-title">ยอดขาย 7 วันล่าสุด (พันบาท)</div>
         <div class="graph-container">
-          <div class="y-axis">
-            <span>8k</span>
-            <span>6k</span>
-            <span>4k</span>
-            <span>2k</span>
-            <span>0</span>
-          </div>
+          <div class="y-axis"><span>8k</span><span>6k</span><span>4k</span><span>2k</span><span>0</span></div>
           <div class="bars-wrapper" id="chart-wrapper"></div>
         </div>
       </div>
@@ -440,201 +345,138 @@
 
     <!-- PAGE 2: QUEUE BOOKING -->
     <div id="queue-page" class="page">
-      <div class="queue-title-header">
-        <h2>จองคิวลูกค้า</h2>
-      </div>
-
+      <div class="queue-title-header"><h2>คิวอาหาร & โต๊ะลูกค้า</h2></div>
       <div class="queue-tabs">
-        <div class="tab-item active" id="tab-current" onclick="switchQueueTab('current')">คิวปัจจุบัน (<span id="count-current">0</span>)</div>
-        <div class="tab-item" id="tab-history" onclick="switchQueueTab('history')">ประวัติการจอง (<span id="count-history">0</span>)</div>
+        <div class="tab-item active" id="tab-current" onclick="switchQueueTab('current')">กำลังทำคิว (<span id="count-current">0</span>)</div>
+        <div class="tab-item" id="tab-history" onclick="switchQueueTab('history')">เสิร์ฟแล้ว (<span id="count-history">0</span>)</div>
       </div>
-
       <div class="queue-content">
         <div id="queue-list"></div>
-        <button class="btn-add-queue" onclick="openQueueModal()">
-          <i class="fas fa-plus"></i> จองคิวใหม่
-        </button>
+        <button class="btn-add-queue" onclick="openQueueModal()"><i class="fas fa-plus"></i> เพิ่มคิวสั่งอาหารใหม่</button>
       </div>
     </div>
 
-    <!-- PAGE 3: FINANCE -->
+    <!-- PAGE 3: STOCK -->
+    <div id="stock-page" class="page">
+      <div class="top-header">
+        <div class="top-header-left">
+          <i class="fas fa-chevron-left back-btn" onclick="switchMainTab('dashboard-page', document.getElementById('nav-dashboard'))"></i>
+          <span class="page-title-text">สต็อกวัตถุดิบอาหาร</span>
+        </div>
+        <i class="fas fa-shopping-cart cart-btn"></i>
+      </div>
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="stock-search-input" class="search-input" placeholder="ค้นหาวัตถุดิบ / รหัสวัตถุดิบ" onkeyup="filterStock()">
+      </div>
+      <div class="filter-chips">
+        <div class="chip active" onclick="setStockFilter('all', this)">ทั้งหมด</div>
+        <div class="chip" onclick="setStockFilter('low', this)">ใกล้หมด</div>
+        <div class="chip" onclick="setStockFilter('out', this)">หมดสต็อก</div>
+        <div class="chip" onclick="setStockFilter('cat', this)">หมวดหมู่ <i class="fas fa-chevron-down"></i></div>
+      </div>
+      <div id="stock-list"></div>
+      <button class="btn-floating-add" onclick="openStockModal()"><i class="fas fa-plus"></i> เพิ่มวัตถุดิบ</button>
+    </div>
+
+    <!-- PAGE 4: PROMOTION -->
+    <div id="promo-page" class="page">
+      <div class="top-header">
+        <div class="top-header-left">
+          <i class="fas fa-chevron-left back-btn" onclick="switchMainTab('dashboard-page', document.getElementById('nav-dashboard'))"></i>
+          <span class="page-title-text">โปรโมชั่น / ส่วนลดร้าน</span>
+        </div>
+        <i class="fas fa-shopping-cart cart-btn"></i>
+      </div>
+      <div class="banner-promo">
+        <div class="banner-text"><h3>ฟรี! ไข่ดาว</h3><p>เมื่อสั่งครบ 150 บาทขึ้นไป</p></div>
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200" class="banner-img" alt="Promotions">
+      </div>
+      <div id="coupons-container"></div>
+      <div class="footer-banner">
+        <div class="footer-banner-icon">🎁</div>
+        <div class="footer-banner-text">อิ่มอร่อย คุ้มค่า กับ Easy Cost ตามสั่ง</div>
+      </div>
+    </div>
+
+    <!-- PAGE 5: FINANCE -->
     <div id="finance-page" class="page">
-      <div class="queue-title-header">
-        <h2>บัญชีการเงิน</h2>
-      </div>
-
+      <div class="queue-title-header"><h2>บัญชีการเงินร้านอาหาร</h2></div>
       <div class="summary-grid mb-12">
-        <div class="summary-card income">
-          <div class="card-label">รายรับรวม</div>
-          <div class="card-value" id="fin-page-income">฿ 0</div>
-        </div>
-        <div class="summary-card expense">
-          <div class="card-label">รายจ่ายรวม</div>
-          <div class="card-value" id="fin-page-expense">฿ 0</div>
-        </div>
-        <div class="summary-card profit">
-          <div class="card-label">กำไรสุทธิ</div>
-          <div class="card-value" id="fin-page-profit">฿ 0</div>
-        </div>
+        <div class="summary-card income"><div class="card-label">รายรับรวม</div><div class="card-value" id="fin-page-income">฿ 0</div></div>
+        <div class="summary-card expense"><div class="card-label">รายจ่ายรวม</div><div class="card-value" id="fin-page-expense">฿ 0</div></div>
+        <div class="summary-card profit"><div class="card-label">กำไรสุทธิ</div><div class="card-value" id="fin-page-profit">฿ 0</div></div>
       </div>
-
-      <button class="btn-add-queue primary-green mb-16" onclick="openFinanceModal()">
-        <i class="fas fa-plus-circle"></i> + บันทึกการเงินใหม่
-      </button>
-
-      <div class="section-title">ประวัติรายการการเงิน</div>
+      <button class="btn-add-queue primary-green mb-16" onclick="openFinanceModal()"><i class="fas fa-plus-circle"></i> + บันทึกรายรับ/รายจ่าย</button>
+      <div class="section-title">ประวัติการซื้อวัตถุดิบ & ยอดขาย</div>
       <div id="finance-list"></div>
     </div>
 
-    <!-- PAGE 4: STOCK -->
-    <div id="stock-page" class="page">
-      <div class="queue-title-header">
-        <h2>ระบบสต็อกสินค้า</h2>
-      </div>
-
-      <div class="summary-grid mb-12">
-        <div class="summary-card profit">
-          <div class="card-label">รายการสินค้า</div>
-          <div class="card-value" id="stock-total-items">0 รายการ</div>
-        </div>
-        <div class="summary-card expense">
-          <div class="card-label">สินค้าใกล้หมด</div>
-          <div class="card-value" id="stock-low-items">0 รายการ</div>
-        </div>
-      </div>
-
-      <button class="btn-add-queue mb-16" onclick="openStockModal()">
-        <i class="fas fa-box"></i> + เพิ่มสินค้าใหม่
-      </button>
-
-      <div class="section-title">รายการสินค้าทั้งหมด</div>
-      <div id="stock-list"></div>
-    </div>
-
-    <!-- PAGE 5: MORE -->
+    <!-- PAGE 6: MORE -->
     <div id="more-page" class="page">
-      <div class="queue-title-header">
-        <h2>เพิ่มเติม & ตั้งค่า</h2>
-      </div>
-
+      <div class="queue-title-header"><h2>เพิ่มเติม & ตั้งค่า</h2></div>
       <div class="profile-card">
-        <div class="profile-avatar">
-          <i class="fas fa-user-circle"></i>
-          <span class="edit-badge" onclick="editProfile()"><i class="fas fa-camera"></i></span>
-        </div>
+        <div class="profile-avatar"><i class="fas fa-user-circle"></i><span class="edit-badge" onclick="editProfile()"><i class="fas fa-camera"></i></span></div>
         <div class="profile-info">
-          <h3 id="profile-name-text">คุณสมชาย ใจดี</h3>
-          <p id="profile-shop-text">ร้านกาแฟสลับสี่ทุ่ม</p>
+          <h3 id="profile-name-text">คุณป้าเจ๊เพ็ญ</h3>
+          <p id="profile-shop-text">ร้านตามสั่งเจ๊เพ็ญ รสเด็ด</p>
           <span class="role-badge">เจ้าของร้าน (Owner)</span>
         </div>
       </div>
-
       <div class="settings-group">
         <div class="group-title">การตั้งค่าบัญชี</div>
-        <div class="settings-item" onclick="editProfile()">
-          <div class="item-icon bg-blue"><i class="fas fa-user-edit"></i></div>
-          <div class="item-label">แก้ไขข้อมูลส่วนตัว</div>
-          <i class="fas fa-chevron-right arrow-icon"></i>
-        </div>
-        <div class="settings-item" onclick="alert('ระบบเปลี่ยนรหัสผ่านส่งลิงก์ไปยังอีเมลของคุณแล้ว')">
-          <div class="item-icon bg-green"><i class="fas fa-lock"></i></div>
-          <div class="item-label">เปลี่ยนรหัสผ่าน</div>
-          <i class="fas fa-chevron-right arrow-icon"></i>
-        </div>
+        <div class="settings-item" onclick="editProfile()"><div class="item-icon bg-blue"><i class="fas fa-user-edit"></i></div><div class="item-label">แก้ไขข้อมูลส่วนตัว</div><i class="fas fa-chevron-right arrow-icon"></i></div>
+        <div class="settings-item" onclick="alert('ระบบเปลี่ยนรหัสผ่านส่งลิงก์ไปยังอีเมลของคุณแล้ว')"><div class="item-icon bg-green"><i class="fas fa-lock"></i></div><div class="item-label">เปลี่ยนรหัสผ่าน</div><i class="fas fa-chevron-right arrow-icon"></i></div>
       </div>
-
       <div class="settings-group">
         <div class="group-title">การแจ้งเตือน & การแสดงผล</div>
         <div class="settings-item">
-          <div class="item-icon bg-purple"><i class="fas fa-bell"></i></div>
-          <div class="item-label">แจ้งเตือนคิวใหม่</div>
-          <label class="switch">
-            <input type="checkbox" id="toggle-notif" checked onchange="saveSettings()">
-            <span class="slider"></span>
-          </label>
+          <div class="item-icon bg-purple"><i class="fas fa-bell"></i></div><div class="item-label">แจ้งเตือนออเดอร์ใหม่</div>
+          <label class="switch"><input type="checkbox" id="toggle-notif" checked onchange="saveSettings()"><span class="slider"></span></label>
         </div>
         <div class="settings-item">
-          <div class="item-icon bg-teal"><i class="fas fa-print"></i></div>
-          <div class="item-label">พิมพ์ใบจองคิวอัตโนมัติ</div>
-          <label class="switch">
-            <input type="checkbox" id="toggle-print" onchange="saveSettings()">
-            <span class="slider"></span>
-          </label>
+          <div class="item-icon bg-teal"><i class="fas fa-print"></i></div><div class="item-label">พิมพ์ใบเสร็จอัตโนมัติ</div>
+          <label class="switch"><input type="checkbox" id="toggle-print" onchange="saveSettings()"><span class="slider"></span></label>
         </div>
       </div>
-
       <div class="settings-group">
         <div class="group-title">การสนับสนุน</div>
-        <div class="settings-item logout" onclick="handleLogout()">
-          <div class="item-icon bg-red"><i class="fas fa-sign-out-alt"></i></div>
-          <div class="item-label">ออกจากระบบ</div>
-          <i class="fas fa-chevron-right arrow-icon"></i>
-        </div>
+        <div class="settings-item logout" onclick="handleLogout()"><div class="item-icon bg-red"><i class="fas fa-sign-out-alt"></i></div><div class="item-label">ออกจากระบบ</div><i class="fas fa-chevron-right arrow-icon"></i></div>
       </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Nav -->
     <div class="bottom-nav">
-      <div class="nav-item active" id="nav-dashboard" onclick="switchMainTab('dashboard-page', this)">
-        <i class="fas fa-home"></i>
-        <span>หน้าหลัก</span>
-      </div>
-      <div class="nav-item" id="nav-queue" onclick="switchMainTab('queue-page', this)">
-        <i class="fas fa-list-alt"></i>
-        <span>จองคิว</span>
-      </div>
-      <div class="nav-item" id="nav-finance" onclick="switchMainTab('finance-page', this)">
-        <i class="fas fa-coins"></i>
-        <span>การเงิน</span>
-      </div>
-      <div class="nav-item" id="nav-stock" onclick="switchMainTab('stock-page', this)">
-        <i class="fas fa-store"></i>
-        <span>สต็อก</span>
-      </div>
-      <div class="nav-item" id="nav-more" onclick="switchMainTab('more-page', this)">
-        <i class="fas fa-ellipsis-h"></i>
-        <span>เพิ่มเติม</span>
-      </div>
+      <div class="nav-item active" id="nav-dashboard" onclick="switchMainTab('dashboard-page', this)"><i class="fas fa-home"></i><span>หน้าหลัก</span></div>
+      <div class="nav-item" id="nav-queue" onclick="switchMainTab('queue-page', this)"><i class="fas fa-list-alt"></i><span>จองคิว</span></div>
+      <div class="nav-item" id="nav-stock" onclick="switchMainTab('stock-page', this)"><i class="fas fa-box"></i><span>สต็อก</span></div>
+      <div class="nav-item" id="nav-promo" onclick="switchMainTab('promo-page', this)"><i class="fas fa-bullhorn"></i><span>โปรโมชั่น</span></div>
+      <div class="nav-item" id="nav-finance" onclick="switchMainTab('finance-page', this)"><i class="fas fa-coins"></i><span>การเงิน</span></div>
+      <div class="nav-item" id="nav-more" onclick="switchMainTab('more-page', this)"><i class="fas fa-ellipsis-h"></i><span>เพิ่มเติม</span></div>
     </div>
   </div>
 
-  <!-- MODAL 1 -->
+  <!-- MODALS -->
   <div class="modal-backdrop" id="queue-modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title">จองคิวใหม่</div>
-        <div class="modal-close" onclick="closeQueueModal()">&times;</div>
-      </div>
+      <div class="modal-header"><div class="modal-title">เพิ่มคิวสั่งอาหาร</div><div class="modal-close" onclick="closeQueueModal()">&times;</div></div>
+      <div class="form-group"><label>ชื่อลูกค้า / เลขโต๊ะ</label><input type="text" id="input-cust-name" class="form-control" placeholder="เช่น โต๊ะ 3 / คุณสมชาย"></div>
+      <div class="form-group"><label>จำนวนจาน</label><input type="number" id="input-cust-qty" class="form-control" value="2" min="1"></div>
+      <div class="form-group"><label>เวลาที่สั่ง</label><input type="time" id="input-cust-time" class="form-control"></div>
       <div class="form-group">
-        <label>ชื่อลูกค้า</label>
-        <input type="text" id="input-cust-name" class="form-control" placeholder="เช่น คุณสมชาย">
-      </div>
-      <div class="form-group">
-        <label>จำนวนคน</label>
-        <input type="number" id="input-cust-qty" class="form-control" value="2" min="1">
-      </div>
-      <div class="form-group">
-        <label>เวลาที่จอง</label>
-        <input type="time" id="input-cust-time" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>สถานะเริ่มต้น</label>
+        <label>สถานะคิว</label>
         <select id="input-cust-status" class="form-control">
-          <option value="ordering">กำลังสั่ง</option>
-          <option value="waiting" selected>รอคิว</option>
+          <option value="ordering">กำลังผัด/ทำอาหาร</option>
+          <option value="waiting" selected>รอคิวผัด</option>
         </select>
       </div>
-      <button class="btn-submit" onclick="saveNewQueue()">บันทึกข้อมูลคิว</button>
+      <button class="btn-submit" onclick="saveNewQueue()">บันทึกออเดอร์คิว</button>
     </div>
   </div>
 
-  <!-- MODAL 2 -->
   <div class="modal-backdrop" id="finance-modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title">บันทึก รายรับ / รายจ่าย</div>
-        <div class="modal-close" onclick="closeFinanceModal()">&times;</div>
-      </div>
+      <div class="modal-header"><div class="modal-title">บันทึก รายรับ / รายจ่าย</div><div class="modal-close" onclick="closeFinanceModal()">&times;</div></div>
       <div class="form-group">
         <label>ประเภทรายการ</label>
         <select id="input-fin-type" class="form-control">
@@ -645,95 +487,101 @@
       <div class="form-group">
         <label>หมวดหมู่</label>
         <select id="input-fin-cat" class="form-control">
-          <option value="ยอดขายร้าน">ยอดขายร้าน</option>
-          <option value="ค่าวัตถุดิบ">ค่าวัตถุดิบ</option>
-          <option value="ค่าเช่าร้าน">ค่าเช่าร้าน</option>
+          <option value="ยอดขายอาหาร">ยอดขายอาหารประจำวัน</option>
+          <option value="ซื้อหมู/ไก่/ไข่">ค่าวัตถุดิบสด (หมู/ไก่/ไข่)</option>
+          <option value="ซื้อผัก/เครื่องปรุง">ค่าผักสด & เครื่องปรุง</option>
+          <option value="ค่าแก๊สหุงต้ม">ค่าแก๊สหุงต้ม</option>
           <option value="ค่าน้ำค่าไฟ">ค่าน้ำค่าไฟ</option>
           <option value="อื่นๆ">อื่นๆ</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>จำนวนเงิน (บาท)</label>
-        <input type="number" id="input-fin-amount" class="form-control" placeholder="0.00">
-      </div>
-      <div class="form-group">
-        <label>หมายเหตุ</label>
-        <input type="text" id="input-fin-note" class="form-control" placeholder="รายละเอียดเพิ่มเติม (ถ้ามี)">
-      </div>
+      <div class="form-group"><label>จำนวนเงิน (บาท)</label><input type="number" id="input-fin-amount" class="form-control" placeholder="0.00"></div>
+      <div class="form-group"><label>หมายเหตุ</label><input type="text" id="input-fin-note" class="form-control" placeholder="เช่น ซื้อไข่ไก่ 5 แผง ตลาดสด"></div>
       <button class="btn-submit" onclick="saveFinanceTransaction()">บันทึกรายการ</button>
     </div>
   </div>
 
-  <!-- MODAL 3 -->
   <div class="modal-backdrop" id="stock-modal">
     <div class="modal-content">
-      <div class="modal-header">
-        <div class="modal-title">เพิ่มสินค้าใหม่</div>
-        <div class="modal-close" onclick="closeStockModal()">&times;</div>
-      </div>
-      <div class="form-group">
-        <label>ชื่อสินค้า</label>
-        <input type="text" id="input-stock-name" class="form-control" placeholder="เช่น เมล็ดกาแฟ คั่วเข้ม">
-      </div>
-      <div class="form-group">
-        <label>หมวดหมู่</label>
-        <input type="text" id="input-stock-cat" class="form-control" placeholder="เช่น วัตถุดิบ / เครื่องดื่ม">
-      </div>
-      <div class="form-group">
-        <label>จำนวนในสต็อกปัจจุบัน</label>
-        <input type="number" id="input-stock-qty" class="form-control" value="10" min="0">
-      </div>
-      <div class="form-group">
-        <label>จำนวนขั้นต่ำ (แจ้งเตือนเมื่อใกล้หมด)</label>
-        <input type="number" id="input-stock-min" class="form-control" value="3" min="1">
-      </div>
-      <div class="form-group">
-        <label>ราคาขายต่อหน่วย (บาท)</label>
-        <input type="number" id="input-stock-price" class="form-control" placeholder="0.00">
-      </div>
-      <button class="btn-submit" onclick="saveNewStockItem()">บันทึกสินค้า</button>
+      <div class="modal-header"><div class="modal-title">เพิ่มวัตถุดิบใหม่</div><div class="modal-close" onclick="closeStockModal()">&times;</div></div>
+      <div class="form-group"><label>ชื่อวัตถุดิบ</label><input type="text" id="input-stock-name" class="form-control" placeholder="เช่น เนื้อหมูสันนอก"></div>
+      <div class="form-group"><label>รหัสวัตถุดิบ (SKU)</label><input type="text" id="input-stock-sku" class="form-control" placeholder="เช่น RM001"></div>
+      <div class="form-group"><label>หมวดหมู่</label><input type="text" id="input-stock-cat" class="form-control" placeholder="เช่น เนื้อสัตว์ / ผัก / ของแห้ง"></div>
+      <div class="form-group"><label>จำนวนในสต็อก (กก./แผง/ขวด)</label><input type="number" id="input-stock-qty" class="form-control" value="10"></div>
+      <div class="form-group"><label>จำนวนขั้นต่ำ (เตือนใกล้หมด)</label><input type="number" id="input-stock-min" class="form-control" value="3"></div>
+      <div class="form-group"><label>ต้นทุนต่อหน่วย (บาท)</label><input type="number" id="input-stock-price" class="form-control" placeholder="0.00"></div>
+      <button class="btn-submit" onclick="saveNewStockItem()">บันทึกวัตถุดิบ</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="ing-modal">
+    <div class="modal-content">
+      <div class="modal-header"><div class="modal-title">อัปเดตราคาวัตถุดิบวันนี้</div><div class="modal-close" onclick="closeIngModal()">&times;</div></div>
+      <div class="form-group"><label>ชื่อวัตถุดิบตลาดสด</label><input type="text" id="input-ing-name" class="form-control" placeholder="เช่น เนื้อหมูบด (กก.)"></div>
+      <div class="form-group"><label>หน่วยนับ</label><input type="text" id="input-ing-unit" class="form-control" placeholder="เช่น กก., แผง, ลิตร"></div>
+      <div class="form-group"><label>ราคาเมื่อวาน (บาท)</label><input type="number" id="input-ing-prev" class="form-control" placeholder="0.00"></div>
+      <div class="form-group"><label>ราคาในวันนี้ (บาท)</label><input type="number" id="input-ing-today" class="form-control" placeholder="0.00"></div>
+      <button class="btn-submit" onclick="saveIngredientPrice()">บันทึกราคาประจำวัน</button>
     </div>
   </div>
 
   <script>
+    // ข้อมูลตัวอย่างสำหรับร้านอาหารตามสั่ง
     const DEFAULT_QUEUES = [
-      { id: 1, name: "คุณสมชาย", qty: 2, time: "12:30 น.", status: "ordering" },
-      { id: 2, name: "คุณสมชาย", qty: 2, time: "12:45 น.", status: "waiting" },
-      { id: 3, name: "คุณสมชาย", qty: 2, time: "13:00 น.", status: "waiting" },
-      { id: 4, name: "คุณสมชาย", qty: 2, time: "13:15 น.", status: "waiting" }
+      { id: 1, name: "โต๊ะ 1 (กระเพราหมูสับ+ไข่ดาว)", qty: 1, time: "12:10 น.", status: "ordering" },
+      { id: 2, name: "โต๊ะ 3 (คะน้าหมูกรอบ 2 จาน)", qty: 2, time: "12:15 น.", status: "waiting" },
+      { id: 3, name: "คุณสมชาย (ข้าวผัดไก่ ถุง)", qty: 1, time: "12:20 น.", status: "waiting" }
     ];
 
     const DEFAULT_TRANSACTIONS = [
-      { id: 1, type: "income", category: "ยอดขายร้าน", amount: 5820, note: "ยอดขายประจำวัน", date: "10 ต.ค." },
-      { id: 2, type: "expense", category: "ค่าวัตถุดิบ", amount: 2340, note: "สั่งซื้อเมล็ดกาแฟและนมสด", date: "10 ต.ค." }
+      { id: 1, type: "income", category: "ยอดขายอาหาร", amount: 4850, note: "ขายรอบเช้า-เที่ยง", date: "10 ต.ค." },
+      { id: 2, type: "expense", category: "ซื้อหมู/ไก่/ไข่", amount: 1850, note: "ซื้อหมูสับ, น่องไก่, ไข่ไก่ 3 แผง", date: "10 ต.ค." }
     ];
 
     const DEFAULT_STOCK = [
-      { id: 1, name: "เมล็ดกาแฟ คั่วกลาง", category: "วัตถุดิบ", qty: 15, min: 5, price: 250 },
-      { id: 2, name: "นมสด เมจิ 2L", category: "วัตถุดิบ", qty: 2, min: 4, price: 95 },
-      { id: 3, name: "แก้วกาแฟ 16oz", category: "บรรจุภัณฑ์", qty: 120, min: 50, price: 3 },
-      { id: 4, name: "ไซรัป วานิลลา", category: "วัตถุดิบ", qty: 1, min: 2, price: 320 }
+      { id: 1, name: "เนื้อหมูสับสด", sku: "RM001", category: "เนื้อสัตว์", qty: 8, min: 3, price: 140, img: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=100" },
+      { id: 2, name: "อกไก่สด", sku: "RM002", category: "เนื้อสัตว์", qty: 12, min: 4, price: 85, img: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=100" },
+      { id: 3, name: "ไข่ไก่ เบอร์ 2", sku: "RM003", category: "ไข่สด", qty: 2, min: 3, price: 125, img: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=100" },
+      { id: 4, name: "ใบกระเพราสด", sku: "RM004", category: "ผักสด", qty: 5, min: 2, price: 30, img: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=100" },
+      { id: 5, name: "หมูกรอบทำเอง", sku: "RM005", category: "เนื้อสัตว์", qty: 0, min: 2, price: 220, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=100" },
+      { id: 6, name: "น้ำมันพืชมรกต 1L", sku: "RM006", category: "เครื่องปรุง", qty: 10, min: 4, price: 48, img: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=100" }
     ];
 
-    const DEFAULT_PROFILE = { name: "คุณสมชาย ใจดี", shop: "ร้านกาแฟสลับสี่ทุ่ม" };
+    const DEFAULT_COUPONS = [
+      { id: 1, title: "ฟรี! ไข่ดาว 1 ฟอง", desc: "เมื่อสั่งครบ 120 บาทขึ้นไป", bg: "#e63946" },
+      { id: 2, title: "ส่วนลด 15 บาท", desc: "เมื่อสั่งก๋วยเตี๋ยว/ผัดซีอิ๊ว 3 จาน", bg: "#1d3557" },
+      { id: 3, title: "แถมน้ำซุปซี่โครงฟรี", desc: "สำหรับสั่งทานที่ร้านทุกโต๊ะ", bg: "#2a9d8f" }
+    ];
+
+    const DEFAULT_INGREDIENTS = [
+      { id: 1, name: "หมูเนื้อแดง / หมูสับ", unit: "1 กิโลกรัม", prevPrice: 140, todayPrice: 145 },
+      { id: 2, name: "เนื้ออกไก่สด", unit: "1 กิโลกรัม", prevPrice: 88, todayPrice: 85 },
+      { id: 3, name: "ไข่ไก่ (เบอร์ 2)", unit: "1 แผง (30 ฟอง)", prevPrice: 120, todayPrice: 125 },
+      { id: 4, name: "ผักกาดขาว / คะน้า", unit: "1 กิโลกรัม", prevPrice: 35, todayPrice: 35 }
+    ];
+
+    const DEFAULT_PROFILE = { name: "คุณป้าเจ๊เพ็ญ", shop: "ร้านตามสั่งเจ๊เพ็ญ รสเด็ด" };
     const DEFAULT_SETTINGS = { notif: true, autoPrint: false };
 
     const DEFAULT_CHART = [
-      { day: "4", income: 50, expense: 35 },
-      { day: "5", income: 55, expense: 25 },
-      { day: "6", income: 60, expense: 35 },
-      { day: "7", income: 80, expense: 60 },
-      { day: "8", income: 80, expense: 60 },
-      { day: "9", income: 75, expense: 50 },
-      { day: "10", income: 85, expense: 80 }
+      { day: "4", income: 45, expense: 20 },
+      { day: "5", income: 50, expense: 22 },
+      { day: "6", income: 55, expense: 25 },
+      { day: "7", income: 70, expense: 35 },
+      { day: "8", income: 65, expense: 30 },
+      { day: "9", income: 60, expense: 28 },
+      { day: "10", income: 75, expense: 32 }
     ];
 
     let queues = JSON.parse(localStorage.getItem('easycost_queues')) || DEFAULT_QUEUES;
     let transactions = JSON.parse(localStorage.getItem('easycost_transactions')) || DEFAULT_TRANSACTIONS;
-    let stockItems = JSON.parse(localStorage.getItem('easycost_stock')) || DEFAULT_STOCK;
+    let stockItems = JSON.parse(localStorage.getItem('easycost_stock_v3')) || DEFAULT_STOCK;
+    let ingredients = JSON.parse(localStorage.getItem('easycost_ingredients')) || DEFAULT_INGREDIENTS;
     let profile = JSON.parse(localStorage.getItem('easycost_profile')) || DEFAULT_PROFILE;
     let settings = JSON.parse(localStorage.getItem('easycost_settings')) || DEFAULT_SETTINGS;
+    
     let currentQueueTab = 'current';
+    let activeStockFilter = 'all';
 
     document.addEventListener("DOMContentLoaded", () => {
       updateClock();
@@ -743,14 +591,14 @@
       renderQueueList();
       renderFinancePage();
       renderStockPage();
+      renderCoupons();
+      renderIngredients();
       loadProfileAndSettings();
     });
 
     function updateClock() {
       const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('clock-time').innerText = `${hours}:${minutes}`;
+      document.getElementById('clock-time').innerText = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     }
 
     function setCurrentDate() {
@@ -762,87 +610,65 @@
     function calculateTotals() {
       const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
       const expense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
-      const profit = income - expense;
-      return { income, expense, profit };
+      return { income, expense, profit: income - expense };
     }
 
     function renderDashboard() {
       const { income, expense, profit } = calculateTotals();
-
       document.getElementById('dash-income').innerText = `฿ ${income.toLocaleString()}`;
       document.getElementById('summary-income').innerText = `฿ ${income.toLocaleString()}`;
       document.getElementById('summary-expense').innerText = `฿ ${expense.toLocaleString()}`;
       document.getElementById('summary-profit').innerText = `฿ ${profit.toLocaleString()}`;
 
       const totalCustomers = queues.reduce((sum, q) => sum + parseInt(q.qty || 0), 0);
-      document.getElementById('dash-customers').innerText = `${totalCustomers} คน`;
+      document.getElementById('dash-customers').innerText = `${totalCustomers} จาน`;
 
       renderChart();
+      renderIngredients();
+    }
+
+    function renderIngredients() {
+      const listContainer = document.getElementById('ingredient-price-list');
+      if (!listContainer) return;
+      listContainer.innerHTML = '';
+
+      ingredients.forEach(ing => {
+        const diff = ing.todayPrice - ing.prevPrice;
+        const pct = ing.prevPrice ? ((diff / ing.prevPrice) * 100).toFixed(1) : 0;
+        
+        let changeClass = 'ing-flat';
+        let changeText = 'เท่าเดิม';
+
+        if (diff > 0) {
+          changeClass = 'ing-up';
+          changeText = `▲ +${pct}% (+฿${diff})`;
+        } else if (diff < 0) {
+          changeClass = 'ing-down';
+          changeText = `▼ ${pct}% (-฿${Math.abs(diff)})`;
+        }
+
+        const item = document.createElement('div');
+        item.className = 'ing-item';
+        item.innerHTML = `
+          <div><div class="ing-name">${ing.name}</div><div class="ing-unit">${ing.unit}</div></div>
+          <div class="ing-price-box"><div class="ing-price">฿${ing.todayPrice}</div><span class="ing-change ${changeClass}">${changeText}</span></div>
+        `;
+        listContainer.appendChild(item);
+      });
     }
 
     function renderChart() {
       const wrapper = document.getElementById('chart-wrapper');
       wrapper.innerHTML = '';
-
       DEFAULT_CHART.forEach(item => {
         const barGroup = document.createElement('div');
         barGroup.className = 'bar-group';
         barGroup.innerHTML = `
-          <div class="bar-pair">
-            <div class="bar green" style="height: ${item.income}%;"></div>
-            <div class="bar pink" style="height: ${item.expense}%;"></div>
-          </div>
+          <div class="bar-pair"><div class="bar green" style="height: ${item.income}%;"></div><div class="bar pink" style="height: ${item.expense}%;"></div></div>
           <span class="x-label">${item.day}</span>
         `;
         wrapper.appendChild(barGroup);
       });
-    }
-
-    function renderFinancePage() {
-      const { income, expense, profit } = calculateTotals();
-
-      document.getElementById('fin-page-income').innerText = `฿ ${income.toLocaleString()}`;
-      document.getElementById('fin-page-expense').innerText = `฿ ${expense.toLocaleString()}`;
-      document.getElementById('fin-page-profit').innerText = `฿ ${profit.toLocaleString()}`;
-
-      const listEl = document.getElementById('finance-list');
-      listEl.innerHTML = '';
-
-      if (transactions.length === 0) {
-        listEl.innerHTML = `<div style="text-align:center; padding:20px; color:#999;">ยังไม่มีรายการการเงิน</div>`;
-        return;
-      }
-
-      transactions.slice().reverse().forEach(t => {
-        const isInc = t.type === 'income';
-        const card = document.createElement('div');
-        card.className = 'item-card';
-        card.innerHTML = `
-          <div class="item-left">
-            <div class="item-tag ${isInc ? 'tag-income' : 'tag-expense'}">
-              <i class="fas ${isInc ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
-            </div>
-            <div>
-              <div class="item-title">${t.category} ${t.note ? `(${t.note})` : ''}</div>
-              <div class="item-sub">${t.date || 'วันนี้'}</div>
-            </div>
-          </div>
-          <div class="item-right">
-            <div class="${isInc ? 'item-amount-inc' : 'item-amount-exp'}">
-              ${isInc ? '+' : '-'}฿${t.amount.toLocaleString()}
-            </div>
-            <i class="fas fa-trash btn-delete" onclick="deleteTransaction(${t.id})"></i>
-          </div>
-        `;
-        listEl.appendChild(card);
-      });
-    }
-
-    function deleteTransaction(id) {
-      if (confirm("ต้องการลบรายการนี้ใช่หรือไม่?")) {
-        transactions = transactions.filter(t => t.id !== id);
-        saveDataAndRefresh();
-      }
     }
 
     function renderQueueList() {
@@ -863,34 +689,16 @@
       }
 
       displayList.forEach((q, index) => {
-        let bgClass = 'bg-waiting';
-        let statusText = 'รอคิว';
-        let statusClass = 'waiting';
-
-        if (q.status === 'ordering') {
-          bgClass = 'bg-ordering';
-          statusText = 'กำลังสั่ง';
-          statusClass = 'ordering';
-        } else if (q.status === 'completed') {
-          bgClass = 'bg-completed';
-          statusText = 'เสร็จสิ้น';
-          statusClass = 'completed';
-        }
+        let bgClass = 'bg-waiting', statusText = 'รอคิวผัด', statusClass = 'waiting';
+        if (q.status === 'ordering') { bgClass = 'bg-ordering'; statusText = 'กำลังผัด'; statusClass = 'ordering'; }
+        else if (q.status === 'completed') { bgClass = 'bg-completed'; statusText = 'เสิร์ฟแล้ว'; statusClass = 'completed'; }
 
         const card = document.createElement('div');
         card.className = 'queue-card';
         card.innerHTML = `
           <div class="queue-number ${bgClass}">${index + 1}</div>
-          <div class="queue-details">
-            <div class="customer-name">${q.name}</div>
-            <div class="customer-qty">จำนวน ${q.qty} คน</div>
-          </div>
-          <div class="queue-status">
-            <div class="status-badge ${statusClass}" onclick="cycleQueueStatus(${q.id})">
-              ${statusText}
-            </div>
-            <div class="time-label">${q.time}</div>
-          </div>
+          <div class="queue-details"><div class="customer-name">${q.name}</div><div class="customer-qty">จำนวน ${q.qty} จาน</div></div>
+          <div class="queue-status"><div class="status-badge ${statusClass}" onclick="cycleQueueStatus(${q.id})">${statusText}</div><div class="time-label">${q.time}</div></div>
           <i class="fas fa-trash btn-delete" onclick="deleteQueue(${q.id})"></i>
         `;
         queueListEl.appendChild(card);
@@ -900,19 +708,14 @@
     function cycleQueueStatus(id) {
       const queue = queues.find(q => q.id === id);
       if (!queue) return;
-
       if (queue.status === 'waiting') queue.status = 'ordering';
       else if (queue.status === 'ordering') queue.status = 'completed';
       else if (queue.status === 'completed') queue.status = 'waiting';
-
       saveDataAndRefresh();
     }
 
     function deleteQueue(id) {
-      if (confirm("ต้องการลบคิวนี้ใช่หรือไม่?")) {
-        queues = queues.filter(q => q.id !== id);
-        saveDataAndRefresh();
-      }
+      if (confirm("ต้องการลบคิวอาหารนี้ใช่หรือไม่?")) { queues = queues.filter(q => q.id !== id); saveDataAndRefresh(); }
     }
 
     function switchQueueTab(tab) {
@@ -923,55 +726,120 @@
     }
 
     function renderStockPage() {
-      document.getElementById('stock-total-items').innerText = `${stockItems.length} รายการ`;
-      const lowCount = stockItems.filter(item => item.qty <= item.min).length;
-      document.getElementById('stock-low-items').innerText = `${lowCount} รายการ`;
-
       const listEl = document.getElementById('stock-list');
       listEl.innerHTML = '';
+      const searchVal = (document.getElementById('stock-search-input')?.value || '').toLowerCase();
 
-      if (stockItems.length === 0) {
-        listEl.innerHTML = `<div style="text-align:center; padding:20px; color:#999;">ยังไม่มีสินค้าในสต็อก</div>`;
+      const filtered = stockItems.filter(item => {
+        const matchesSearch = item.name.toLowerCase().includes(searchVal) || (item.sku && item.sku.toLowerCase().includes(searchVal));
+        if (!matchesSearch) return false;
+        if (activeStockFilter === 'low') return item.qty > 0 && item.qty <= (item.min || 3);
+        if (activeStockFilter === 'out') return item.qty === 0;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = `<div style="text-align:center; padding:30px; color:#999;">ไม่พบวัตถุดิบที่ค้นหา</div>`;
         return;
       }
 
-      stockItems.forEach(item => {
-        const isLow = item.qty <= item.min;
+      filtered.forEach(item => {
+        let badgeClass = "badge-normal", badgeText = "ปกติ";
+        if (item.qty === 0) { badgeClass = "badge-out"; badgeText = "หมดสต็อก"; }
+        else if (item.qty <= (item.min || 3)) { badgeClass = "badge-low"; badgeText = "ใกล้หมด"; }
+
         const card = document.createElement('div');
-        card.className = 'item-card';
+        card.className = 'stock-item-row';
         card.innerHTML = `
-          <div class="item-left">
+          <div class="stock-item-left">
+            <img src="${item.img || 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=100'}" class="stock-img" alt="${item.name}">
             <div>
-              <div class="item-title">${item.name}</div>
-              <div class="item-sub">หมวดหมู่: ${item.category} | ฿${item.price}/หน่วย</div>
-              <span class="stock-qty-badge ${isLow ? 'qty-low' : 'qty-ok'}">
-                ${isLow ? '⚠️ สินค้าใกล้หมด' : 'คงเหลือ'}: ${item.qty} ชิ้น
-              </span>
+              <div class="stock-title-text">${item.name}</div>
+              <div class="stock-sku-text">รหัสวัตถุดิบ : ${item.sku || 'RM000'}</div>
+              <div class="stock-qty-text">คงเหลือ <span style="color: ${item.qty === 0 ? '#e63946' : '#222'}; font-weight:700;">${item.qty} ชิ้น/กก./แผง</span></div>
             </div>
           </div>
-          <div class="stock-actions">
-            <button class="btn-stock-qty" onclick="adjustStock(${item.id}, -1)">-</button>
-            <button class="btn-stock-qty" onclick="adjustStock(${item.id}, 1)">+</button>
-            <i class="fas fa-trash btn-delete" onclick="deleteStockItem(${item.id})"></i>
+          <div style="text-align: right;">
+            <span class="status-badge-pill ${badgeClass}">${badgeText}</span>
+            <div class="stock-actions" style="margin-top: 6px;">
+              <button class="btn-stock-qty" onclick="adjustStock(${item.id}, -1)">-</button>
+              <button class="btn-stock-qty" onclick="adjustStock(${item.id}, 1)">+</button>
+              <i class="fas fa-trash btn-delete" onclick="deleteStockItem(${item.id})"></i>
+            </div>
           </div>
         `;
         listEl.appendChild(card);
       });
     }
 
+    function filterStock() { renderStockPage(); }
+
+    function setStockFilter(type, el) {
+      activeStockFilter = type;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      renderStockPage();
+    }
+
     function adjustStock(id, change) {
       const item = stockItems.find(i => i.id === id);
-      if (item) {
-        item.qty = Math.max(0, item.qty + change);
-        saveDataAndRefresh();
-      }
+      if (item) { item.qty = Math.max(0, item.qty + change); saveDataAndRefresh(); }
     }
 
     function deleteStockItem(id) {
-      if (confirm("ต้องการลบสินค้านี้ใช่หรือไม่?")) {
-        stockItems = stockItems.filter(i => i.id !== id);
-        saveDataAndRefresh();
+      if (confirm("ต้องการลบวัตถุดิบลานี้ใช่หรือไม่?")) { stockItems = stockItems.filter(i => i.id !== id); saveDataAndRefresh(); }
+    }
+
+    function renderCoupons() {
+      const container = document.getElementById('coupons-container');
+      if (!container) return;
+      container.innerHTML = '';
+      DEFAULT_COUPONS.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'coupon-card';
+        card.innerHTML = `
+          <div class="coupon-icon-box" style="background-color: ${c.bg}"><i class="fas fa-utensils"></i></div>
+          <div class="coupon-info"><div class="coupon-title">${c.title}</div><div class="coupon-desc">${c.desc}</div></div>
+          <button class="btn-use-coupon" onclick="alert('ใช้โปรโมชั่น ${c.title} เรียบร้อยแล้ว')">ใช้คูปอง</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderFinancePage() {
+      const { income, expense, profit } = calculateTotals();
+      document.getElementById('fin-page-income').innerText = `฿ ${income.toLocaleString()}`;
+      document.getElementById('fin-page-expense').innerText = `฿ ${expense.toLocaleString()}`;
+      document.getElementById('fin-page-profit').innerText = `฿ ${profit.toLocaleString()}`;
+
+      const listEl = document.getElementById('finance-list');
+      listEl.innerHTML = '';
+
+      if (transactions.length === 0) {
+        listEl.innerHTML = `<div style="text-align:center; padding:20px; color:#999;">ยังไม่มีรายการการเงิน</div>`;
+        return;
       }
+
+      transactions.slice().reverse().forEach(t => {
+        const isInc = t.type === 'income';
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.innerHTML = `
+          <div class="item-left">
+            <div class="item-tag ${isInc ? 'tag-income' : 'tag-expense'}"><i class="fas ${isInc ? 'fa-arrow-down' : 'fa-arrow-up'}"></i></div>
+            <div><div class="item-title">${t.category} ${t.note ? `(${t.note})` : ''}</div><div class="item-sub">${t.date || 'วันนี้'}</div></div>
+          </div>
+          <div class="item-right">
+            <div class="${isInc ? 'item-amount-inc' : 'item-amount-exp'}">${isInc ? '+' : '-'}฿${t.amount.toLocaleString()}</div>
+            <i class="fas fa-trash btn-delete" onclick="deleteTransaction(${t.id})"></i>
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+    }
+
+    function deleteTransaction(id) {
+      if (confirm("ต้องการลบรายการนี้ใช่หรือไม่?")) { transactions = transactions.filter(t => t.id !== id); saveDataAndRefresh(); }
     }
 
     function openQueueModal() {
@@ -986,7 +854,6 @@
       const qty = parseInt(document.getElementById('input-cust-qty').value) || 1;
       const time = document.getElementById('input-cust-time').value + " น.";
       const status = document.getElementById('input-cust-status').value;
-
       queues.push({ id: Date.now(), name, qty, time, status });
       saveDataAndRefresh();
       closeQueueModal();
@@ -1003,9 +870,7 @@
       const note = document.getElementById('input-fin-note').value.trim();
 
       if (amount <= 0) return alert('กรุณากรอกจำนวนเงินให้ถูกต้อง');
-
       transactions.push({ id: Date.now(), type, category, amount, note, date: 'วันนี้' });
-
       saveDataAndRefresh();
       closeFinanceModal();
       document.getElementById('input-fin-amount').value = '';
@@ -1017,18 +882,38 @@
 
     function saveNewStockItem() {
       const name = document.getElementById('input-stock-name').value.trim();
+      const sku = document.getElementById('input-stock-sku').value.trim() || ("RM00" + (stockItems.length + 1));
       const category = document.getElementById('input-stock-cat').value.trim() || "ทั่วไป";
       const qty = parseInt(document.getElementById('input-stock-qty').value) || 0;
       const min = parseInt(document.getElementById('input-stock-min').value) || 3;
       const price = parseFloat(document.getElementById('input-stock-price').value) || 0;
 
-      if (!name) return alert('กรุณากรอกชื่อสินค้า');
-
-      stockItems.push({ id: Date.now(), name, category, qty, min, price });
-
+      if (!name) return alert('กรุณากรอกชื่อวัตถุดิบ');
+      stockItems.push({ id: Date.now(), name, sku, category, qty, min, price, img: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?w=100" });
       saveDataAndRefresh();
       closeStockModal();
       document.getElementById('input-stock-name').value = '';
+      document.getElementById('input-stock-sku').value = '';
+    }
+
+    function openIngModal() { document.getElementById('ing-modal').classList.add('active'); }
+    function closeIngModal() { document.getElementById('ing-modal').classList.remove('active'); }
+
+    function saveIngredientPrice() {
+      const name = document.getElementById('input-ing-name').value.trim();
+      const unit = document.getElementById('input-ing-unit').value.trim() || "หน่วย";
+      const prevPrice = parseFloat(document.getElementById('input-ing-prev').value) || 0;
+      const todayPrice = parseFloat(document.getElementById('input-ing-today').value) || 0;
+
+      if (!name) return alert('กรุณากรอกชื่อวัตถุดิบ');
+      ingredients.push({ id: Date.now(), name, unit, prevPrice, todayPrice });
+      localStorage.setItem('easycost_ingredients', JSON.stringify(ingredients));
+      renderIngredients();
+      closeIngModal();
+      document.getElementById('input-ing-name').value = '';
+      document.getElementById('input-ing-unit').value = '';
+      document.getElementById('input-ing-prev').value = '';
+      document.getElementById('input-ing-today').value = '';
     }
 
     function loadProfileAndSettings() {
@@ -1043,9 +928,7 @@
       if (newName !== null && newName.trim() !== "") {
         const newShop = prompt("กรุณากรอกชื่อร้านค้าของคุณ:", profile.shop);
         profile.name = newName.trim();
-        if (newShop !== null && newShop.trim() !== "") {
-          profile.shop = newShop.trim();
-        }
+        if (newShop !== null && newShop.trim() !== "") { profile.shop = newShop.trim(); }
         localStorage.setItem('easycost_profile', JSON.stringify(profile));
         loadProfileAndSettings();
       }
@@ -1069,7 +952,8 @@
     function saveDataAndRefresh() {
       localStorage.setItem('easycost_queues', JSON.stringify(queues));
       localStorage.setItem('easycost_transactions', JSON.stringify(transactions));
-      localStorage.setItem('easycost_stock', JSON.stringify(stockItems));
+      localStorage.setItem('easycost_stock_v3', JSON.stringify(stockItems));
+      localStorage.setItem('easycost_ingredients', JSON.stringify(ingredients));
       renderDashboard();
       renderQueueList();
       renderFinancePage();
@@ -1081,6 +965,7 @@
         queues = [...DEFAULT_QUEUES];
         transactions = [...DEFAULT_TRANSACTIONS];
         stockItems = [...DEFAULT_STOCK];
+        ingredients = [...DEFAULT_INGREDIENTS];
         saveDataAndRefresh();
       }
     }
